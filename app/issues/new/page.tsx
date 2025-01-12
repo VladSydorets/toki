@@ -133,9 +133,13 @@ const NewIssuePage: React.FC = () => {
                 <SelectValue placeholder="Select priority" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="low">Low</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="high">High</SelectItem>
+                <SelectItem value="MINOR">Minor</SelectItem>
+                <SelectItem value="LOW">Low</SelectItem>
+                <SelectItem value="LOWEST">Lowest</SelectItem>
+                <SelectItem value="MEDIUM">Medium</SelectItem>
+                <SelectItem value="HIGH">High</SelectItem>
+                <SelectItem value="HIGHEST">Highest</SelectItem>
+                <SelectItem value="CRITICAL">Critical</SelectItem>
               </SelectContent>
             </Select>
             {errors.priority && (

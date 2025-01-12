@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
     data: {
       title: body.title,
       description: body.description,
+      priority: body.priority,
       userId: parseInt(session.user.id, 10),
     },
   });
