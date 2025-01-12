@@ -6,7 +6,7 @@ export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();
 
   return (
-    <main>
+    <main className="container mx-auto py-10">
       <IssuesTable issues={issues}></IssuesTable>
       <div>
         <Link href={"/issues/new"}>New Issue</Link>

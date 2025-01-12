@@ -12,7 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronDown, ChevronUp, Search } from "lucide-react";
+import { CalendarIcon, ChevronDown, ChevronUp, Search } from "lucide-react";
 
 import { Issue } from "@prisma/client";
 import Link from "next/link";
@@ -22,6 +22,29 @@ import {
   getStatusColor,
   getPriorityColor,
 } from "../definitions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { DateRange } from "react-day-picker";
 
 interface Props {
   issues: Issue[];
@@ -32,6 +55,15 @@ export default function IssuesTable({ issues }: Props) {
   const [sortColumn, setSortColumn] = useState<keyof Issue | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState<Issue["status"] | "all">(
+    "all"
+  );
+  const [priorityFilter, setPriorityFilter] = useState<
+    Issue["priority"] | "all"
+  >("all");
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [issuesPerPage, setIssuesPerPage] = useState(5);
 
   const handleSort = (column: keyof Issue) => {
     let newSortDirection: "asc" | "desc" = "asc";
@@ -44,24 +76,63 @@ export default function IssuesTable({ issues }: Props) {
       setSortDirection(newSortDirection);
     }
 
-    const sortedIssues = [...issues].sort((a, b) => {
-      if (a[column] !== null && b[column] !== null) {
-        if (a[column] < b[column]) return sortDirection === "asc" ? -1 : 1;
-        if (a[column] > b[column]) return sortDirection === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-
     setUpdatedIssues(sortedIssues);
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
-  const filteredIssues = updatedIssues.filter((issue) =>
-    issue.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleStatusFilter = (value: Issue["status"] | "all") => {
+    setStatusFilter(value);
+    setCurrentPage(1);
+  };
+
+  const handlePriorityFilter = (value: Issue["priority"] | "all") => {
+    setPriorityFilter(value);
+    setCurrentPage(1);
+  };
+
+  const handleDateRangeChange = (range: DateRange | undefined) => {
+    setDateRange(range);
+    setCurrentPage(1);
+  };
+
+  const filteredIssues = updatedIssues.filter((issue) => {
+    const matchesSearch = issue.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || issue.status === statusFilter;
+    const matchesPriority =
+      priorityFilter === "all" || issue.priority === priorityFilter;
+    const matchesDateRange =
+      (!dateRange?.from || new Date(issue.createdAt) >= dateRange?.from) &&
+      (!dateRange?.to || new Date(issue.createdAt) <= dateRange?.to);
+    return (
+      matchesSearch && matchesStatus && matchesPriority && matchesDateRange
+    );
+  });
+
+  const sortedIssues = filteredIssues.sort((a, b) => {
+    if (sortColumn) {
+      if (a[sortColumn] !== null && b[sortColumn] !== null) {
+        if (a[sortColumn] < b[sortColumn])
+          return sortDirection === "asc" ? -1 : 1;
+        if (a[sortColumn] > b[sortColumn])
+          return sortDirection === "asc" ? 1 : -1;
+      }
+    }
+    return 0;
+  });
+
+  const indexOfLastIssue = currentPage * issuesPerPage;
+  const indexOfFirstIssue = indexOfLastIssue - issuesPerPage;
+  const currentIssues = sortedIssues.slice(indexOfFirstIssue, indexOfLastIssue);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -77,6 +148,65 @@ export default function IssuesTable({ issues }: Props) {
           />
         </div>
       </div>
+      <Select value={statusFilter} onValueChange={handleStatusFilter}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Filter by status" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All Statuses</SelectItem>
+          <SelectItem value="TO_DO">To Do</SelectItem>
+          <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
+          <SelectItem value="CODE_REVIEW">Code Review</SelectItem>
+          <SelectItem value="COMPLETED">Completed</SelectItem>
+        </SelectContent>
+      </Select>
+      <Select value={priorityFilter} onValueChange={handlePriorityFilter}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Filter by priority" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">All Priorities</SelectItem>
+          <SelectItem value="MINOR">Minor</SelectItem>
+          <SelectItem value="LOWEST">Lowest</SelectItem>
+          <SelectItem value="LOW">Low</SelectItem>
+          <SelectItem value="MEDIUM">Medium</SelectItem>
+          <SelectItem value="HIGH">High</SelectItem>
+          <SelectItem value="HIGHEST">Highest</SelectItem>
+          <SelectItem value="CRITICAL">Critical</SelectItem>
+        </SelectContent>
+      </Select>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className="w-[240px] justify-start text-left font-normal"
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {dateRange?.from ? (
+              dateRange.to ? (
+                <>
+                  {format(dateRange.from, "LLL dd, y")} -{" "}
+                  {format(dateRange.to, "LLL dd, y")}
+                </>
+              ) : (
+                format(dateRange.from, "LLL dd, y")
+              )
+            ) : (
+              <span>Pick a date range</span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="end">
+          <Calendar
+            initialFocus
+            mode="range"
+            defaultMonth={dateRange?.from}
+            selected={dateRange}
+            onSelect={handleDateRangeChange}
+            numberOfMonths={2}
+          />
+        </PopoverContent>
+      </Popover>
       <Table>
         <TableHeader>
           <TableRow>
@@ -127,7 +257,7 @@ export default function IssuesTable({ issues }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredIssues.map((issue) => (
+          {currentIssues.map((issue) => (
             <TableRow key={issue.id}>
               <TableCell className="font-medium">
                 <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
@@ -149,6 +279,57 @@ export default function IssuesTable({ issues }: Props) {
           ))}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-between">
+        <Select
+          value={issuesPerPage.toString()}
+          onValueChange={(value) => {
+            setIssuesPerPage(Number(value));
+            setCurrentPage(1);
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Issues per page" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="5">5 per page</SelectItem>
+            <SelectItem value="10">10 per page</SelectItem>
+            <SelectItem value="20">20 per page</SelectItem>
+          </SelectContent>
+        </Select>
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => paginate(Math.max(1, currentPage - 1))}
+              />
+            </PaginationItem>
+            {Array.from({
+              length: Math.ceil(sortedIssues.length / issuesPerPage),
+            }).map((_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  onClick={() => paginate(index + 1)}
+                  isActive={currentPage === index + 1}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+              <PaginationNext
+                onClick={() =>
+                  paginate(
+                    Math.min(
+                      Math.ceil(sortedIssues.length / issuesPerPage),
+                      currentPage + 1
+                    )
+                  )
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      </div>
     </div>
   );
 }
