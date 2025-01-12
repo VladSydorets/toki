@@ -14,65 +14,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
 
-import { Issue, Priority, TaskStatus } from "@prisma/client";
+import { Issue } from "@prisma/client";
 import Link from "next/link";
+import {
+  statusTextMap,
+  priorityTextMap,
+  getStatusColor,
+  getPriorityColor,
+} from "../definitions";
 
 interface Props {
   issues: Issue[];
 }
 
-const statusTextMap: Record<TaskStatus, string> = {
-  TO_DO: "To do",
-  IN_PROGRESS: "In progress",
-  CODE_REVIEW: "Code review",
-  COMPLETED: "Completed",
-};
-
-const priorityTextMap: Record<Priority, string> = {
-  MINOR: "Minor",
-  LOWEST: "Lowest",
-  LOW: "Low",
-  MEDIUM: "Medium",
-  HIGH: "High",
-  HIGHEST: "Highest",
-  CRITICAL: "Critical",
-};
-
-const getStatusColor = (status: Issue["status"]) => {
-  switch (status) {
-    case "TO_DO":
-      return "bg-yellow-500";
-    case "IN_PROGRESS":
-      return "bg-blue-500";
-    case "CODE_REVIEW":
-      return "bg-purple-500";
-    case "COMPLETED":
-      return "bg-green-500";
-    default:
-      return "bg-gray-500";
-  }
-};
-
-const getPriorityColor = (priority: Issue["priority"]) => {
-  switch (priority) {
-    case "MINOR":
-      return "bg-green-500";
-    case "LOWEST":
-      return "bg-blue-300";
-    case "LOW":
-      return "bg-blue-500";
-    case "MEDIUM":
-      return "bg-yellow-500";
-    case "HIGH":
-      return "bg-red-300";
-    case "HIGHEST":
-      return "bg-red-500";
-    case "CRITICAL":
-      return "bg-red-700";
-    default:
-      return "bg-gray-500";
-  }
-};
 export default function IssuesTable({ issues }: Props) {
   const [updatedIssues, setUpdatedIssues] = useState(issues);
   const [sortColumn, setSortColumn] = useState<keyof Issue | null>(null);
