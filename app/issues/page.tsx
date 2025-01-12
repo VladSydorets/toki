@@ -1,5 +1,4 @@
 import prisma from "@/lib/db";
-import Link from "next/link";
 import IssuesTable from "./components/IssuesTable";
 
 export default async function IssuesPage() {
@@ -8,9 +7,6 @@ export default async function IssuesPage() {
   return (
     <main className="container mx-auto py-10">
       <IssuesTable issues={issues}></IssuesTable>
-      <div>
-        <Link href={"/issues/new"}>New Issue</Link>
-      </div>
     </main>
   );
 }

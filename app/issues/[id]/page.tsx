@@ -32,6 +32,12 @@ export default async function IssuePage({ params }: { params: Params }) {
     notFound();
   }
 
+  const user = await prisma.user.findUnique({
+    where: {
+      id: issue.userId,
+    },
+  });
+
   return (
     <main className="container mx-auto py-10">
       <Link
@@ -73,7 +79,7 @@ export default async function IssuePage({ params }: { params: Params }) {
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Reported By</h3>
-            <p className="text-muted-foreground">{issue.userId}</p>
+            <p className="text-muted-foreground">{`${user?.firstName} ${user?.lastName}`}</p>
           </div>
           {/* <div>
             <h3 className="text-lg font-semibold mb-2">Assigned to</h3>
