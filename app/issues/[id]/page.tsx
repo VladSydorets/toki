@@ -1,10 +1,14 @@
 import prisma from "@/lib/db";
 // import Link from "next/link";
 
-export default async function IssuePage({ params }) {
+interface Params {
+  id: string;
+}
+
+export default async function IssuePage({ params }: { params: Params }) {
   const issue = await prisma.issue.findUnique({
     where: {
-      id: params.id,
+      id: parseInt(params.id, 10),
     },
   });
 
@@ -12,6 +16,7 @@ export default async function IssuePage({ params }) {
     <main>
       <h1>{issue?.title}</h1>
       <p>{issue?.description}</p>
+      <p>{issue?.priority}</p>
     </main>
   );
 }

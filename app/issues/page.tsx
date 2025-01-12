@@ -12,6 +12,9 @@ export default async function IssuesPage() {
           <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
         </li>
       ))}
+      <div>
+        <Link href={"/issues/new"}>New Issue</Link>
+      </div>
     </main>
   );
 }
