@@ -5,27 +5,37 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginFormSchema } from "../definitions";
 
 export function LoginForm() {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(LoginFormSchema),
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+  });
 
-  const handleCredentialsLogin = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleCredentialsLogin: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     try {
       const response = await signIn("credentials", {
-        email: email,
-        password: password,
-        redirect: true,
-        callbackUrl: "/",
+        email: data.email,
+        password: data.password,
+        redirect: false,
       });
 
       if (response?.error) {
-        setError("Login failed. Please check your credentials.");
+        setError("Invalid login credentials.");
+      } else {
+        window.location.href = "/";
       }
     } catch (error) {
       console.error(error);
@@ -42,6 +52,7 @@ export function LoginForm() {
         callbackUrl: "/",
         redirect: true,
       });
+
       if (response?.error) {
         setError("Login failed. Try with a different account.");
       }
@@ -52,23 +63,23 @@ export function LoginForm() {
       setLoading(false);
     }
   };
+
   return (
-    <form onSubmit={handleCredentialsLogin}>
+    <form onSubmit={handleSubmit(handleCredentialsLogin)}>
       <div className="flex flex-col gap-2">
         <div>
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
-            name="email"
-            placeholder="m@example.com"
+            placeholder="email@example.com"
             type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            {...register("email")}
           />
-          {/* {state} */}
-          {/* {state?.errors?.email && (
-            <p className="text-sm text-red-500">{state.errors.email}</p>
-          )} */}
+          {errors.email && (
+            <p className="text-sm text-red-500">
+              {errors.email.message as string}
+            </p>
+          )}
         </div>
         <div className="mt-4">
           <div className="flex items-center justify-between">
@@ -77,21 +88,14 @@ export function LoginForm() {
               Forgot your password?
             </Link>
           </div>
-          <Input
-            id="password"
-            type="password"
-            name="password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {/* {state?.errors?.password && (
-            <p className="text-sm text-red-500">{state.errors.password}</p>
-          )} */}
+          <Input id="password" type="password" {...register("password")} />
+          {errors.password && (
+            <p className="text-sm text-red-500">
+              {errors.password.message as string}
+            </p>
+          )}
         </div>
-        {/* {state?.message && (
-          <p className="text-sm text-red-500">{state.message}</p>
-        )} */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="text-sm text-red-500">{error}</p>}
         <Button aria-disabled={loading} type="submit" className="mt-4 w-full">
           {loading ? "Submitting..." : "Sign in"}
         </Button>
