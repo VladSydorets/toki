@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import prisma from "@/prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, Clock, Flag } from "lucide-react";
 import Link from "next/link";
 // import { getServerSession } from "next-auth";
@@ -13,18 +12,21 @@ import {
   getStatusColor,
   getPriorityColor,
 } from "../definitions";
+import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
+import EditIssueBtn from "../components/EditIssueBtn";
 
 interface Params {
   id: string;
 }
 
 export default async function IssuePage({ params }: { params: Params }) {
-  if (isNaN(parseInt(params.id, 10))) notFound();
+  const { id } = await params;
+  if (isNaN(parseInt(id, 10))) notFound();
   // const session = await getServerSession(authOptions);
 
   const issue = await prisma.issue.findUnique({
     where: {
-      id: parseInt(params.id, 10),
+      id: parseInt(id, 10),
     },
   });
 
@@ -86,12 +88,8 @@ export default async function IssuePage({ params }: { params: Params }) {
             <p className="text-muted-foreground">{issue.assignee}</p>
           </div> */}
           <div className="flex justify-end space-x-4">
-            <Button variant="outline" className="bg-green-500 text-white">
-              Edit Issue
-            </Button>
-            <Button variant="outline" className="bg-red-500 text-white">
-              Remove Issue
-            </Button>
+            <EditIssueBtn issueId={issue.id}></EditIssueBtn>
+            <RemoveIssueBtn issueId={issue.id} />
           </div>
         </CardContent>
       </Card>
