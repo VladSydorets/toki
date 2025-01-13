@@ -48,6 +48,7 @@ export async function PATCH(
         data: {
           title,
           description,
+          type: body.type ? body.type : issue.type || "FEATURE",
           status: body.status ? body.status : issue.status || "TO_DO",
           priority: body.priority ? body.priority : issue.priority || "MEDIUM",
         },

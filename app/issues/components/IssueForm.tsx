@@ -37,7 +37,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
 
   const submitFormData: SubmitHandler<FieldValues> = async (formData) => {
     setSubmitting(true);
-    const { title, description, priority } = formData;
+    const { title, description, type, priority, status } = formData;
     try {
       if (issue) {
         await fetch(`/api/issues/${issue.id}`, {
@@ -45,7 +45,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title, description, priority }),
+          body: JSON.stringify({ title, description, type, priority, status }),
         });
       } else {
         await fetch("/api/issues", {
@@ -53,10 +53,10 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title, description, priority }),
+          body: JSON.stringify({ title, description, type, priority, status }),
         });
       }
-      router.push("/issues");
+      router.push(`/issues/${issue ? issue.id : ""}`);
     } catch (error) {
       console.log(error);
       setSubmitting(false);
@@ -120,6 +120,65 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
             {errors.description && (
               <p className="text-sm text-red-500">
                 {errors.description.message as string}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="type">Type:</Label>
+            <Controller
+              name="type"
+              control={control}
+              defaultValue={issue?.type ?? "FEATURE"}
+              render={({ field }) => (
+                <Select
+                  value={field.value}
+                  onValueChange={(value) => setValue("type", value)}
+                >
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="BUG">Bug</SelectItem>
+                    <SelectItem value="FEATURE">Feature</SelectItem>
+                    <SelectItem value="ENHANCEMENT">Enhancement</SelectItem>
+                    <SelectItem value="DOCUMENTATION">Documentation</SelectItem>
+                    <SelectItem value="OTHER">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.type && (
+              <p className="text-sm text-red-500">
+                {errors.type.message as string}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="status">Status:</Label>
+            <Controller
+              name="status"
+              control={control}
+              defaultValue={issue?.status ?? "TO_DO"}
+              render={({ field }) => (
+                <Select
+                  value={field.value}
+                  onValueChange={(value) => setValue("status", value)}
+                >
+                  <SelectTrigger id="status">
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="TO_DO">To do</SelectItem>
+                    <SelectItem value="IN_PROGRESS">In progress</SelectItem>
+                    <SelectItem value="CODE_REVIEW">Code review</SelectItem>
+                    <SelectItem value="COMPLETED">Completed</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.status && (
+              <p className="text-sm text-red-500">
+                {errors.status.message as string}
               </p>
             )}
           </div>

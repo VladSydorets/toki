@@ -2,12 +2,7 @@ import { authOptions } from "@/app/auth/AuthOptions";
 import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-
-const issuePostRequestSchema = z.object({
-  title: z.string().min(1).max(256),
-  description: z.string().min(1).max(1000),
-});
+import { issuePostRequestSchema } from "./definitions";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -36,6 +31,8 @@ export async function POST(request: NextRequest) {
     data: {
       title: body.title,
       description: body.description,
+      type: body.type,
+      status: body.status,
       priority: body.priority,
       userId: parseInt(session.user.id, 10),
     },

@@ -1,28 +1,36 @@
-import { Issue, Priority, TaskStatus } from "@prisma/client";
+import { Issue, IssueType, IssueStatus, IssuePriority } from "@prisma/client";
 import { z } from "zod";
 
 export const NewIssueFormSchema = z.object({
   title: z.string().nonempty("Title is required."),
   description: z.string(),
-  priority: z.enum([
-    "MINOR",
-    "LOWEST",
-    "LOW",
-    "MEDIUM",
-    "HIGH",
-    "HIGHEST",
-    "CRITICAL",
-  ]),
+  type: z
+    .enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"])
+    .optional(),
+  status: z
+    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED"])
+    .optional(),
+  priority: z
+    .enum(["MINOR", "LOWEST", "LOW", "MEDIUM", "HIGH", "HIGHEST", "CRITICAL"])
+    .optional(),
 });
 
-export const statusTextMap: Record<TaskStatus, string> = {
+export const typeTextMap: Record<IssueType, string> = {
+  BUG: "Bug",
+  FEATURE: "Feature",
+  ENHANCEMENT: "Enhancement",
+  DOCUMENTATION: "Documentation",
+  OTHER: "Other",
+};
+
+export const statusTextMap: Record<IssueStatus, string> = {
   TO_DO: "To do",
   IN_PROGRESS: "In progress",
   CODE_REVIEW: "Code review",
   COMPLETED: "Completed",
 };
 
-export const priorityTextMap: Record<Priority, string> = {
+export const priorityTextMap: Record<IssuePriority, string> = {
   MINOR: "Minor",
   LOWEST: "Lowest",
   LOW: "Low",
@@ -30,6 +38,21 @@ export const priorityTextMap: Record<Priority, string> = {
   HIGH: "High",
   HIGHEST: "Highest",
   CRITICAL: "Critical",
+};
+
+export const getTypeColor = (type: Issue["type"]) => {
+  switch (type) {
+    case "BUG":
+      return "bg-red-500";
+    case "FEATURE":
+      return "bg-blue-500";
+    case "ENHANCEMENT":
+      return "bg-green-500";
+    case "DOCUMENTATION":
+      return "bg-yellow-500";
+    default:
+      return "bg-gray-500";
+  }
 };
 
 export const getStatusColor = (status: Issue["status"]) => {

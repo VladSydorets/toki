@@ -7,10 +7,12 @@ import Link from "next/link";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "@/app/auth/AuthOptions";
 import {
-  statusTextMap,
-  priorityTextMap,
+  getTypeColor,
+  typeTextMap,
   getStatusColor,
+  statusTextMap,
   getPriorityColor,
+  priorityTextMap,
 } from "../definitions";
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import EditIssueBtn from "../components/EditIssueBtn";
@@ -52,7 +54,12 @@ export default async function IssuePage({ params }: { params: Params }) {
       <Card>
         <CardHeader className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
-            <CardTitle className="text-2xl font-bold">{issue.title}</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              {issue.title}{" "}
+              <Badge className={getTypeColor(issue.type)}>
+                {typeTextMap[issue.type]}
+              </Badge>
+            </CardTitle>
             <p className="text-sm text-muted-foreground">Issue #{issue.id}</p>
           </div>
           <div className="flex items-center space-x-4">
