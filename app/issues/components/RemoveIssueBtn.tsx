@@ -3,30 +3,66 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 export function RemoveIssueBtn({ issueId }: { issueId: number }) {
   const router = useRouter();
   const handleIssueDelete = async (id: number) => {
-    if (!window.confirm("Are you sure you want to delete this issue?")) return;
-
     try {
       const response = await fetch(`/api/issues/${id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        alert("Issue deleted successfully.");
         router.push("/issues");
       } else {
         await response.json();
-        alert("Failed to delete issue.");
       }
     } catch (error) {
       console.error(error);
-      alert("An error occurred while deleting the issue.");
     }
   };
 
   return (
-    <Button onClick={() => handleIssueDelete(issueId)}>Delete Issue</Button>
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <Button variant="destructive" className="p-3">
+            Delete issue
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription className="mb-4">
+              This action cannot be undone. This action will permanently delete
+              an issue.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              <Button variant="ghost" color="gray">
+                Cancel
+              </Button>
+            </AlertDialogCancel>
+            <AlertDialogAction className="p-0">
+              <Button onClick={() => handleIssueDelete(issueId)}>
+                Delete Issue
+              </Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
