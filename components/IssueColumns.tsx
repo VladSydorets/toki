@@ -47,7 +47,7 @@ export default function IssueColumns({ issues }: IssueColumnsProps) {
                 {filteredIssues.length}
               </Badge>
             </h2>
-            <div className="bg-gray-100 p-4 rounded-lg min-h-[200px]">
+            <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
               {filteredIssues.length > 0 ? (
                 <>
                   {displayedIssues.map((issue) => (

@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import { Inter, Roboto, Open_Sans } from "next/font/google";
+import { Navbar } from "@/components/Navbar";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto",
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-open-sans",
 });
 
 export const metadata: Metadata = {
@@ -24,14 +34,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="mx-auto max-w-screen-lg h-screen flex flex-col">
-          <Navbar />
-          <div className="flex-grow">{children}</div>
-        </div>
+    <html
+      lang="en"
+      className={`${inter.variable} ${roboto.variable} ${openSans.variable}`}
+      suppressHydrationWarning
+    >
+      <body>
+        <ThemeProvider>
+          <div className="mx-auto max-w-screen-lg h-screen flex flex-col">
+            <Navbar />
+            <div className="flex-grow">{children}</div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

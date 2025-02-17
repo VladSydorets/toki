@@ -8,7 +8,7 @@ import { Issue } from "@prisma/client";
 export default function IssueCard({ issue }: { issue: Issue }) {
   return (
     <Link href={`/issues/${issue.id}`} className="block">
-      <Card className="mb-4 p-6 cursor-pointer transition-shadow hover:shadow-md">
+      <Card className="mb-4 p-6 cursor-pointer transition-all duration-200 hover:shadow-md hover:border-gray-400 dark:hover:border-gray-500 hover:bg-slate-100 dark:hover:bg-slate-900">
         <CardHeader className="p-0 mb-2 text-left">
           <CardTitle className="text-lg font-medium">{issue.title}</CardTitle>
         </CardHeader>
