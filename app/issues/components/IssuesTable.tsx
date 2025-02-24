@@ -188,7 +188,7 @@ export default function IssuesTable({ issues }: Props) {
                   format(dateRange.from, "LLL dd, y")
                 )
               ) : (
-                <span>Pick a date range</span>
+                <span>Pick a date</span>
               )}
             </Button>
           </PopoverTrigger>
