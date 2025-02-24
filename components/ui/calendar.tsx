@@ -80,7 +80,7 @@ function Calendar({
     }, [yearRange])
   );
 
-  const { onNextClick, onPrevClick, startMonth, endMonth } = props;
+  const { onPrevClick, startMonth, endMonth } = props;
 
   const columnsDisplayed = navView === "years" ? 1 : numberOfMonths;
 
@@ -222,7 +222,6 @@ function Calendar({
         ),
         MonthGrid: ({ className, children, ...props }) => (
           <MonthGrid
-            children={children}
             className={className}
             displayYears={displayYears}
             startMonth={startMonth}
@@ -230,7 +229,9 @@ function Calendar({
             navView={navView}
             setNavView={setNavView}
             {...props}
-          />
+          >
+            {children}
+          </MonthGrid>
         ),
       }}
       numberOfMonths={columnsDisplayed}
@@ -248,7 +249,6 @@ function Nav({
   displayYears,
   setDisplayYears,
   onPrevClick,
-  onNextClick,
 }: {
   className?: string;
   navView: NavView;
@@ -259,7 +259,6 @@ function Nav({
     React.SetStateAction<{ from: number; to: number }>
   >;
   onPrevClick?: (date: Date) => void;
-  onNextClick?: (date: Date) => void;
 }) {
   const { nextMonth, previousMonth, goToMonth } = useDayPicker();
 
@@ -326,7 +325,7 @@ function Nav({
         from: prev.from + (prev.to - prev.from + 1),
         to: prev.to + (prev.to - prev.from + 1),
       }));
-      onNextClick?.(
+      onPrevClick?.(
         new Date(
           displayYears.from + (displayYears.to - displayYears.from),
           0,
@@ -336,7 +335,7 @@ function Nav({
       return;
     }
     goToMonth(nextMonth);
-    onNextClick?.(nextMonth);
+    onPrevClick?.(nextMonth);
   }, [goToMonth, nextMonth]);
   return (
     <nav className={cn("flex items-center", className)}>
