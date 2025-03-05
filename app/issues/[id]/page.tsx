@@ -17,11 +17,15 @@ import {
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import EditIssueBtn from "../components/EditIssueBtn";
 
-interface Params {
-  id: string;
-}
+// interface Params {
+//   id: string;
+// }
 
-export default async function IssuePage({ params }: { params: Params }) {
+export default async function IssuePage({
+  params,
+}: {
+  params: Promise<{ id: string }>; // temporary fix
+}) {
   const { id } = await params;
   if (isNaN(parseInt(id, 10))) notFound();
   // const session = await getServerSession(authOptions);

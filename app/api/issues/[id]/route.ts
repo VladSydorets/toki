@@ -6,9 +6,9 @@ import { patchIssueSchema } from "../definitions";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<Record<string, string>> }
 ) {
-  const { id } = params;
+  const { id } = await params;
 
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -32,7 +32,7 @@ export async function PATCH(
   }
 
   const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(params.id) },
+    where: { id: parseInt(id) },
   });
 
   if (!issue) {
@@ -67,9 +67,9 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<Record<string, string>> }
 ) {
-  const { id } = params;
+  const { id } = await params;
 
   const session = await getServerSession(authOptions);
   if (!session) {
