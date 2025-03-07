@@ -39,13 +39,16 @@ export default function IssueColumns({ issues }: IssueColumnsProps) {
 
         return (
           <div key={status} className="space-y-4">
-            <h2 className="text-2xl font-semibold capitalize flex justify-between items-center px-4">
-              {statusTextMap[status]}
+            <h2 className="text-xl font-medium capitalize flex gap-2 items-center px-4">
               <Badge
-                className={getStatusColor(status as IssueStatus) + " text-base"}
+                className={
+                  getStatusColor(status as IssueStatus) +
+                  " text-xs rounded-full"
+                }
               >
                 {filteredIssues.length}
               </Badge>
+              {statusTextMap[status]}
             </h2>
             <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
               {filteredIssues.length > 0 ? (
