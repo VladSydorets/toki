@@ -7,7 +7,7 @@ export const patchIssueSchema = z.object({
     .enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"])
     .optional(),
   status: z
-    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED"])
+    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED", "CANCELED"])
     .optional(),
   priority: z
     .enum(["MINOR", "LOWEST", "LOW", "MEDIUM", "HIGH", "HIGHEST", "CRITICAL"])
@@ -21,7 +21,7 @@ export const issuePostRequestSchema = z.object({
     .enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"])
     .optional(),
   status: z
-    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED"])
+    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED", "CANCELED"])
     .optional(),
   priority: z
     .enum(["MINOR", "LOWEST", "LOW", "MEDIUM", "HIGH", "HIGHEST", "CRITICAL"])

@@ -173,6 +173,7 @@ export default function IssuesTable({ issues }: Props) {
             <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
             <SelectItem value="CODE_REVIEW">Code Review</SelectItem>
             <SelectItem value="COMPLETED">Completed</SelectItem>
+            <SelectItem value="CANCLED">Canceled</SelectItem>
           </SelectContent>
         </Select>
         <Select value={priorityFilter} onValueChange={handlePriorityFilter}>

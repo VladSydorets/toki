@@ -53,6 +53,7 @@ enum IssueStatus {
   IN_PROGRESS
   CODE_REVIEW
   COMPLETED
+  CANCELED
 }
 
 enum IssuePriority {

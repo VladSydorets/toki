@@ -13,6 +13,7 @@ export default async function StatusDistributionWrapper() {
     IN_PROGRESS: "#a855f7",
     CODE_REVIEW: "#3b82f6",
     COMPLETED: "#22c55e",
+    CANCELED: "#ef4444",
   };
 
   const data = issuesByStatus.map((entry) => ({

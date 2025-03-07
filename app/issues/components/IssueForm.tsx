@@ -172,6 +172,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
                     <SelectItem value="IN_PROGRESS">In progress</SelectItem>
                     <SelectItem value="CODE_REVIEW">Code review</SelectItem>
                     <SelectItem value="COMPLETED">Completed</SelectItem>
+                    <SelectItem value="CANCELED">Canceled</SelectItem>
                   </SelectContent>
                 </Select>
               )}

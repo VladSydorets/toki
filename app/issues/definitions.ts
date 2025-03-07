@@ -8,7 +8,7 @@ export const NewIssueFormSchema = z.object({
     .enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"])
     .optional(),
   status: z
-    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED"])
+    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED", "CANCELED"])
     .optional(),
   priority: z
     .enum(["MINOR", "LOWEST", "LOW", "MEDIUM", "HIGH", "HIGHEST", "CRITICAL"])
@@ -28,6 +28,7 @@ export const statusTextMap: Record<IssueStatus, string> = {
   IN_PROGRESS: "In progress",
   CODE_REVIEW: "Code review",
   COMPLETED: "Completed",
+  CANCELED: "Canceled",
 };
 
 export const priorityTextMap: Record<IssuePriority, string> = {
@@ -65,6 +66,8 @@ export const getStatusColor = (status: Issue["status"]) => {
       return "bg-purple-500";
     case "COMPLETED":
       return "bg-green-500";
+    case "CANCELED":
+      return "bg-red-500";
     default:
       return "bg-gray-500";
   }
