@@ -12,7 +12,13 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CalendarIcon, ChevronDown, ChevronUp, Search } from "lucide-react";
+import {
+  CalendarIcon,
+  ChevronDown,
+  ChevronUp,
+  CirclePlus,
+  Search,
+} from "lucide-react";
 
 import { Issue } from "@prisma/client";
 import Link from "next/link";
@@ -21,6 +27,7 @@ import {
   priorityTextMap,
   getStatusColor,
   getPriorityColor,
+  typeTextMap,
 } from "../definitions";
 import {
   Select,
@@ -45,6 +52,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { DateRange } from "react-day-picker";
+import CreatedAt from "@/components/CreatedAt";
 
 interface Props {
   issues: Issue[];
@@ -63,7 +71,7 @@ export default function IssuesTable({ issues }: Props) {
   >("all");
   const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
   const [currentPage, setCurrentPage] = useState(1);
-  const [issuesPerPage, setIssuesPerPage] = useState(5);
+  const [issuesPerPage, setIssuesPerPage] = useState(10);
 
   const handleSort = (column: keyof Issue) => {
     let newSortDirection: "asc" | "desc" = "asc";
@@ -138,11 +146,22 @@ export default function IssuesTable({ issues }: Props) {
       <div className="flex justify-between items-center">
         <div>
           <Link
-            className="bg-blue-500 text-white py-2 px-5 rounded-lg"
+            className="bg-blue-500 text-white font-medium text-sm py-2 px-4 rounded-lg inline-flex items-center gap-1"
             href={"/issues/new"}
           >
+            <CirclePlus className="stroke-2 size-4 mb-[1px]" />
             New Issue
           </Link>
+        </div>
+        <div className="relative">
+          <Search className="absolute w-4 left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Search issues..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className="pl-7"
+          />
         </div>
         <Select value={statusFilter} onValueChange={handleStatusFilter}>
           <SelectTrigger className="w-[180px]">
@@ -175,9 +194,9 @@ export default function IssuesTable({ issues }: Props) {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="w-[240px] justify-start text-left font-normal"
+              className="w-[240px] justify-start items-center text-left font-normal"
             >
-              <CalendarIcon className="mr-2 h-4 w-4" />
+              <CalendarIcon className="size-4 mb-[2px]" />
               {dateRange?.from ? (
                 dateRange.to ? (
                   <>
@@ -203,16 +222,6 @@ export default function IssuesTable({ issues }: Props) {
             />
           </PopoverContent>
         </Popover>
-        <div className="relative">
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="Search issues..."
-            value={searchTerm}
-            onChange={handleSearch}
-            className="pl-8"
-          />
-        </div>
       </div>
       <Table>
         <TableHeader>
@@ -267,6 +276,9 @@ export default function IssuesTable({ issues }: Props) {
           {currentIssues.map((issue) => (
             <TableRow key={issue.id}>
               <TableCell className="font-medium">
+                <Badge className="text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent mr-2">
+                  {typeTextMap[issue.type]}
+                </Badge>
                 <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
               </TableCell>
               <TableCell>
@@ -279,8 +291,12 @@ export default function IssuesTable({ issues }: Props) {
                   {priorityTextMap[issue.priority]}
                 </Badge>
               </TableCell>
-              <TableCell className="text-right">
-                {issue.createdAt.toLocaleDateString()}
+              <TableCell className="text-right ">
+                <CreatedAt createdAt={issue.createdAt} />
+                {/* <span className="inline-flex items-center text-xs text-muted-foreground gap-1">
+                  <Clock className="stroke-2 size-3 mb-[1px]" />
+                  {.toLocaleDateString()}
+                </span> */}
               </TableCell>
             </TableRow>
           ))}
@@ -298,9 +314,9 @@ export default function IssuesTable({ issues }: Props) {
             <SelectValue placeholder="Issues per page" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="5">5 per page</SelectItem>
             <SelectItem value="10">10 per page</SelectItem>
             <SelectItem value="20">20 per page</SelectItem>
+            <SelectItem value="50">50 per page</SelectItem>
           </SelectContent>
         </Select>
         <Pagination>
