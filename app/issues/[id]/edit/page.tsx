@@ -17,7 +17,7 @@ export default async function EditPage({
   }
 
   return (
-    <main className="container mx-auto py-10">
+    <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
       <IssueForm issue={issue} />
     </main>
   );

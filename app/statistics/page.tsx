@@ -4,7 +4,7 @@ import StatusDistributionWrapper from "./components/StatusDistribution/StatusDis
 
 export default function StatisticsPage() {
   return (
-    <main className="container mx-auto py-10">
+    <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
       <h2 className="text-2xl font-bold tracking-tight">
         Statistics & Analytics
       </h2>

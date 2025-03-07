@@ -1,12 +1,15 @@
 import prisma from "@/lib/db";
-import IssuesTable from "./components/IssuesTable";
+import IssueColumns from "@/app/issues/components/IssueColumns";
 
 export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();
 
   return (
-    <main className="container mx-auto py-10">
-      <IssuesTable issues={issues}></IssuesTable>
+    <main className="container grid items-center py-4 text-center px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl text-left font-bold tracking-tight">
+        Issues Board
+      </h2>
+      <IssueColumns issues={issues} />
     </main>
   );
 }

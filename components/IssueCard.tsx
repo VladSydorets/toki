@@ -18,7 +18,7 @@ export default function IssueCard({ issue }: { issue: Issue }) {
             <Badge
               className={
                 getPriorityColor(issue.priority) +
-                " text-xs font-normal rounded-full text-white hover:bg-inherit hover:border-gray-600"
+                " text-xs font-normal rounded-full text-white pointer-events-none"
               }
             >
               {issue.priority}

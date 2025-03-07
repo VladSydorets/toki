@@ -28,7 +28,7 @@ import {
   getStatusColor,
   getPriorityColor,
   typeTextMap,
-} from "../definitions";
+} from "../app/issues/definitions";
 import {
   Select,
   SelectContent,

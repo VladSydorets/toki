@@ -47,7 +47,7 @@ export default async function IssuePage({
   });
 
   return (
-    <main className="container mx-auto py-10">
+    <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
       <Link
         href="/issues"
         className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"

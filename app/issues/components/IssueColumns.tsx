@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import IssueCard from "./IssueCard";
-import { Badge } from "./ui/badge";
-import { Button } from "./ui/button";
+import IssueCard from "../../../components/IssueCard";
+import { Badge } from "../../../components/ui/badge";
+import { Button } from "../../../components/ui/button";
 import { ChevronDown } from "lucide-react";
-import EmptyCard from "./EmptyCard";
+import EmptyCard from "../../../components/EmptyCard";
 import { IssueStatus } from "@prisma/client";
 import { getStatusColor, statusTextMap } from "@/app/issues/definitions";
 import { Issue } from "@prisma/client";
@@ -40,7 +40,7 @@ export default function IssueColumns({ issues }: IssueColumnsProps) {
 
         return (
           <div key={status} className="space-y-4">
-            <h2 className="text-xl font-medium capitalize flex gap-2 items-center px-4">
+            <h3 className="text-lg font-medium capitalize flex gap-2 items-center px-4">
               <Badge
                 className={
                   getStatusColor(status as IssueStatus) +
@@ -50,7 +50,7 @@ export default function IssueColumns({ issues }: IssueColumnsProps) {
                 {filteredIssues.length}
               </Badge>
               {statusTextMap[status]}
-            </h2>
+            </h3>
             <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
               {filteredIssues.length > 0 ? (
                 <>
