@@ -1,6 +1,7 @@
 import { Activity, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import StatisticsCard from "./StatisticsCard";
 import prisma from "@/lib/db";
+import Link from "next/link";
 
 export default async function StatisticsDashboard() {
   const totalIssues = await prisma.issue.count();
@@ -17,6 +18,7 @@ export default async function StatisticsDashboard() {
     },
     select: {
       title: true,
+      id: true,
       createdAt: true,
     },
   });
@@ -37,6 +39,7 @@ export default async function StatisticsDashboard() {
     },
     select: {
       title: true,
+      id: true,
     },
   });
 
@@ -63,13 +66,35 @@ export default async function StatisticsDashboard() {
       <StatisticsCard
         title="Oldest Open Issue"
         value={`${daysSinceOldestIssue} days`}
-        description={oldestIssue?.title ?? ""}
+        description={
+          oldestIssue ? (
+            <Link
+              className="hover:underline"
+              href={`/issues/${oldestIssue.id}`}
+            >
+              {oldestIssue.title}
+            </Link>
+          ) : (
+            ""
+          )
+        }
         icon={<Clock className="h-4 w-4" />}
       />
       <StatisticsCard
         title="Critical Issues"
         value={totalCriticalIssues.toString()}
-        description={oldestCriticalIssue?.title ?? ""}
+        description={
+          oldestCriticalIssue ? (
+            <Link
+              className="hover:underline"
+              href={`/issues/${oldestCriticalIssue.id}`}
+            >
+              {oldestCriticalIssue.title}
+            </Link>
+          ) : (
+            ""
+          )
+        }
         icon={<AlertTriangle className="h-4 w-4" />}
       />
     </div>
