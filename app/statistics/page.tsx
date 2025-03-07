@@ -1,4 +1,5 @@
 import PriorityDistributionWrapper from "./components/PriorityDistribution/PriorityDistributionWrapper";
+import StatisticsDashboard from "./components/StatisticsDashboard/StatisticsDashboard";
 import StatusDistributionWrapper from "./components/StatusDistribution/StatusDistributionWrapper";
 
 export default function StatisticsPage() {
@@ -7,6 +8,7 @@ export default function StatisticsPage() {
       <h2 className="text-2xl font-bold tracking-tight">
         Statistics & Analytics
       </h2>
+      <StatisticsDashboard />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <StatusDistributionWrapper />
         <PriorityDistributionWrapper />

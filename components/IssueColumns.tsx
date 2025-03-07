@@ -20,6 +20,7 @@ export default function IssueColumns({ issues }: IssueColumnsProps) {
     IN_PROGRESS: false,
     COMPLETED: false,
   });
+
   const toggleExpand = (status: "TO_DO" | "IN_PROGRESS" | "COMPLETED") => {
     setExpandedColumns((prev) => ({ ...prev, [status]: !prev[status] }));
   };
