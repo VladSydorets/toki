@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ListTodo } from "lucide-react";
+import NewIssueBtn from "./NewIssueBtn";
 
 export async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -54,6 +55,7 @@ export async function Navbar() {
         </div>
 
         <div className="flex items-center gap-x-5">
+          <NewIssueBtn variant="outline" hideOnHome />
           <div>
             <ThemeToggle />
           </div>

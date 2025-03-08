@@ -12,13 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  CalendarIcon,
-  ChevronDown,
-  ChevronUp,
-  CirclePlus,
-  Search,
-} from "lucide-react";
+import { CalendarIcon, ChevronDown, ChevronUp, Search } from "lucide-react";
 
 import { Issue } from "@prisma/client";
 import Link from "next/link";
@@ -53,6 +47,7 @@ import {
 } from "@/components/ui/pagination";
 import { DateRange } from "react-day-picker";
 import CreatedAt from "@/components/CreatedAt";
+import NewIssueBtn from "./NewIssueBtn";
 
 interface Props {
   issues: Issue[];
@@ -145,13 +140,7 @@ export default function IssuesTable({ issues }: Props) {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <div>
-          <Link
-            className="bg-blue-500 text-white font-medium text-sm py-2 px-4 rounded-lg inline-flex items-center gap-1"
-            href={"/issues/new"}
-          >
-            <CirclePlus className="stroke-2 size-4 mb-[1px]" />
-            New Issue
-          </Link>
+          <NewIssueBtn variant="primary" />
         </div>
         <div className="relative">
           <Search className="absolute w-4 left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
