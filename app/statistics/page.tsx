@@ -1,6 +1,7 @@
-import PriorityDistributionWrapper from "./components/PriorityDistribution/PriorityDistributionWrapper";
 import StatisticsDashboard from "./components/StatisticsDashboard/StatisticsDashboard";
+import PriorityDistributionWrapper from "./components/PriorityDistribution/PriorityDistributionWrapper";
 import StatusDistributionWrapper from "./components/StatusDistribution/StatusDistributionWrapper";
+import TypeDistributionWrapper from "./components/TypeDistribution/TypeDistributionWrapper";
 
 export default function StatisticsPage() {
   return (
@@ -12,6 +13,7 @@ export default function StatisticsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <StatusDistributionWrapper />
         <PriorityDistributionWrapper />
+        <TypeDistributionWrapper />
       </div>
     </main>
   );

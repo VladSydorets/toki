@@ -59,6 +59,8 @@ export const getTypeColor = (type: Issue["type"]) => {
       return "bg-green-500";
     case "DOCUMENTATION":
       return "bg-yellow-500";
+    case "OTHER":
+      return "bg-purple-500";
     default:
       return "bg-gray-500";
   }
