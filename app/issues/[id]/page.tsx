@@ -85,6 +85,14 @@ export default async function IssuePage({
               <Flag className="mr-2 h-4 w-4 opacity-70" />
               <span>Updated: {new Date(issue.updatedAt).toLocaleString()}</span>
             </div>
+            {issue.completedAt && (
+              <div className="flex items-center">
+                <Flag className="mr-2 h-4 w-4 opacity-70" />
+                <span>
+                  Completed: {new Date(issue.completedAt).toLocaleString()}
+                </span>
+              </div>
+            )}
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Description</h3>

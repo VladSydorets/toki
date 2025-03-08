@@ -47,9 +47,14 @@ export async function PATCH(
       data: {
         title,
         description,
-        type: body.type ? body.type : issue.type || "FEATURE",
-        status: body.status ? body.status : issue.status || "BACKLOG",
-        priority: body.priority ? body.priority : issue.priority || "MEDIUM",
+        type: body.type || issue.type || "FEATURE",
+        status: body.status || issue.status || "BACKLOG",
+        priority: body.priority || issue.priority || "MEDIUM",
+        completedAt: body.status
+          ? body.status === "COMPLETED"
+            ? new Date()
+            : null
+          : issue.completedAt,
       },
     });
     return NextResponse.json(
