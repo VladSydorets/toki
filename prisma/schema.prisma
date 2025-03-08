@@ -31,7 +31,7 @@ model Issue {
   title       String
   description String?
   type        IssueType     @default(FEATURE)
-  status      IssueStatus   @default(TO_DO)
+  status      IssueStatus   @default(BACKLOG)
   priority    IssuePriority @default(MEDIUM)
   userId      Int
   user        User          @relation(fields: [userId], references: [id])
