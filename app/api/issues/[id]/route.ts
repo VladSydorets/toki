@@ -104,3 +104,42 @@ export async function DELETE(
     );
   }
 }
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<Record<string, string>> }
+) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ message: "Not authorized." }, { status: 401 });
+  }
+
+  const { id } = await params;
+  if (!id) {
+    return NextResponse.json(
+      { error: "Issue ID is required." },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const issue = await prisma.issue.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!issue) {
+      return NextResponse.json(
+        { error: `Issue #${id} not found.` },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(issue, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching issue: ", error);
+    return NextResponse.json(
+      { error: "Failed to retrieve the issue." },
+      { status: 500 }
+    );
+  }
+}
