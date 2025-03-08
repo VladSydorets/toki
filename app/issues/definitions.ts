@@ -8,7 +8,14 @@ export const NewIssueFormSchema = z.object({
     .enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"])
     .optional(),
   status: z
-    .enum(["TO_DO", "IN_PROGRESS", "CODE_REVIEW", "COMPLETED", "CANCELED"])
+    .enum([
+      "BACKLOG",
+      "TO_DO",
+      "IN_PROGRESS",
+      "CODE_REVIEW",
+      "COMPLETED",
+      "CANCELED",
+    ])
     .optional(),
   priority: z
     .enum(["MINOR", "LOWEST", "LOW", "MEDIUM", "HIGH", "HIGHEST", "CRITICAL"])
@@ -24,6 +31,7 @@ export const typeTextMap: Record<IssueType, string> = {
 };
 
 export const statusTextMap: Record<IssueStatus, string> = {
+  BACKLOG: "Backlog",
   TO_DO: "To do",
   IN_PROGRESS: "In progress",
   CODE_REVIEW: "Code review",
@@ -58,6 +66,8 @@ export const getTypeColor = (type: Issue["type"]) => {
 
 export const getStatusColor = (status: Issue["status"]) => {
   switch (status) {
+    case "BACKLOG":
+      return "bg-slate-400";
     case "TO_DO":
       return "bg-yellow-500";
     case "IN_PROGRESS":

@@ -48,7 +48,7 @@ export async function PATCH(
         title,
         description,
         type: body.type ? body.type : issue.type || "FEATURE",
-        status: body.status ? body.status : issue.status || "TO_DO",
+        status: body.status ? body.status : issue.status || "BACKLOG",
         priority: body.priority ? body.priority : issue.priority || "MEDIUM",
       },
     });

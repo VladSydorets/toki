@@ -168,6 +168,7 @@ export default function IssueForm({ issue }: { issue?: Issue }) {
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="BACKLOG">Backlog</SelectItem>
                     <SelectItem value="TO_DO">To do</SelectItem>
                     <SelectItem value="IN_PROGRESS">In progress</SelectItem>
                     <SelectItem value="CODE_REVIEW">Code review</SelectItem>

@@ -9,6 +9,7 @@ export default async function StatusDistributionWrapper() {
   });
 
   const statusColors: Record<string, string> = {
+    BACKLOG: "#94a3b8",
     TO_DO: "#eab308",
     IN_PROGRESS: "#a855f7",
     CODE_REVIEW: "#3b82f6",

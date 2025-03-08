@@ -169,6 +169,7 @@ export default function IssuesTable({ issues }: Props) {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>
+            <SelectItem value="BACKLOG">Backlog</SelectItem>
             <SelectItem value="TO_DO">To Do</SelectItem>
             <SelectItem value="IN_PROGRESS">In Progress</SelectItem>
             <SelectItem value="CODE_REVIEW">Code Review</SelectItem>
