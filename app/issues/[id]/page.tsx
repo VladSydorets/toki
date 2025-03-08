@@ -15,7 +15,7 @@ import {
   priorityTextMap,
 } from "../definitions";
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
-import EditIssueBtn from "../components/EditIssueBtn";
+import IssueEditModal from "../components/IssueEditModal";
 
 // interface Params {
 //   id: string;
@@ -107,7 +107,7 @@ export default async function IssuePage({
             <p className="text-muted-foreground">{issue.assignee}</p>
           </div> */}
           <div className="flex justify-end space-x-4">
-            <EditIssueBtn issueId={issue.id}></EditIssueBtn>
+            <IssueEditModal issueId={issue.id}></IssueEditModal>
             <RemoveIssueBtn issueId={issue.id} />
           </div>
         </CardContent>
