@@ -51,7 +51,7 @@ export default function IssueColumns({ issues }: IssueColumnsProps) {
               </Badge>
               {statusTextMap[status]}
             </h3>
-            <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg">
+            <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg space-y-3">
               {filteredIssues.length > 0 ? (
                 <>
                   {displayedIssues.map((issue) => (

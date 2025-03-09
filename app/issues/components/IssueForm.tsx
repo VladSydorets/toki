@@ -62,7 +62,7 @@ export default function IssueForm({ issue, onSuccess }: IssueFormProps) {
           body: JSON.stringify({ title, description, type, priority, status }),
         });
       }
-      router.push(`/issues/${issue ? issue.id : ""}`);
+      router.push(`/issues/${issue ? issue.id : ""}`); // bug here
       onSuccess && onSuccess();
     } catch (error) {
       console.log(error);
@@ -88,7 +88,7 @@ export default function IssueForm({ issue, onSuccess }: IssueFormProps) {
   return (
     <Card className="w-full mx-auto">
       {!issue && (
-        <CardHeader>
+        <CardHeader className="pb-0">
           <CardTitle className="text-2xl font-bold">Create New Issue</CardTitle>
         </CardHeader>
       )}

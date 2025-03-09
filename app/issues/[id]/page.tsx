@@ -7,7 +7,6 @@ import Link from "next/link";
 // import { getServerSession } from "next-auth";
 // import { authOptions } from "@/app/auth/AuthOptions";
 import {
-  getTypeColor,
   typeTextMap,
   getStatusColor,
   statusTextMap,
@@ -49,7 +48,7 @@ export default async function IssuePage({
   return (
     <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
       <Link
-        href="/issues"
+        href="/"
         className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
@@ -58,46 +57,54 @@ export default async function IssuePage({
       <Card>
         <CardHeader className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
-            <CardTitle className="text-2xl font-bold">
-              {issue.title}{" "}
-              <Badge className={getTypeColor(issue.type)}>
+            <div className="flex items-center gap-3">
+              <div className="inline-block w-1.5 h-8 rounded-full bg-gradient-to-r from-emerald-500 to-green-500"></div>
+              <CardTitle className="text-2xl font-bold space-x-2">
+                <span className="text-muted-foreground mr-1">#{issue.id}</span>
+                {issue.title}
+              </CardTitle>
+              <Badge className="text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent py-1">
                 {typeTextMap[issue.type]}
               </Badge>
-            </CardTitle>
-            <p className="text-sm text-muted-foreground">Issue #{issue.id}</p>
+            </div>
           </div>
           <div className="flex items-center space-x-4">
-            <Badge className={getStatusColor(issue.status)}>
+            <Badge className={`${getStatusColor(issue.status)} py-1`}>
               {statusTextMap[issue.status]}
             </Badge>
-            <Badge className={getPriorityColor(issue.priority)}>
+            <Badge className={`${getPriorityColor(issue.priority)} py-1`}>
               {priorityTextMap[issue.priority]}
             </Badge>
           </div>
         </CardHeader>
         <CardContent className="grid gap-6">
-          <div className="flex items-center space-x-4 text-sm">
+          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
             <div className="flex items-center">
-              <Clock className="mr-2 h-4 w-4 opacity-70" />
+              <Clock className="mr-2 mb-[1px] h-4 w-4 opacity-70" />
               <span>Created: {new Date(issue.createdAt).toLocaleString()}</span>
             </div>
+            <div className="hidden sm:block">•</div>
             <div className="flex items-center">
               <Flag className="mr-2 h-4 w-4 opacity-70" />
               <span>Updated: {new Date(issue.updatedAt).toLocaleString()}</span>
             </div>
             {issue.completedAt && (
-              <div className="flex items-center">
-                <Flag className="mr-2 h-4 w-4 opacity-70" />
-                <span>
-                  Completed: {new Date(issue.completedAt).toLocaleString()}
-                </span>
-              </div>
+              <>
+                <div className="hidden sm:block">•</div>
+                <div className="flex items-center">
+                  <Flag className="mr-2 h-4 w-4 opacity-70" />
+                  <span>
+                    Completed: {new Date(issue.completedAt).toLocaleString()}
+                  </span>
+                </div>
+              </>
             )}
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Description</h3>
             <p className="text-muted-foreground">{issue.description}</p>
           </div>
+          {/* TODO: Add user's icon */}
           <div>
             <h3 className="text-lg font-semibold mb-2">Reported By</h3>
             <p className="text-muted-foreground">{`${user?.firstName} ${user?.lastName}`}</p>
@@ -107,7 +114,7 @@ export default async function IssuePage({
             <p className="text-muted-foreground">{issue.assignee}</p>
           </div> */}
           <div className="flex justify-end space-x-4">
-            <IssueEditModal issueId={issue.id}></IssueEditModal>
+            <IssueEditModal issueId={issue.id} />
             <RemoveIssueBtn issueId={issue.id} />
           </div>
         </CardContent>
