@@ -2,6 +2,7 @@ import StatisticsDashboard from "./components/StatisticsDashboard/StatisticsDash
 import PriorityDistributionWrapper from "./components/PriorityDistribution/PriorityDistributionWrapper";
 import StatusDistributionWrapper from "./components/StatusDistribution/StatusDistributionWrapper";
 import TypeDistributionWrapper from "./components/TypeDistribution/TypeDistributionWrapper";
+import RecentActivityWrapper from "./components/RecentActivity/RecentActivityWrapper";
 
 export default function StatisticsPage() {
   return (
@@ -14,6 +15,7 @@ export default function StatisticsPage() {
         <StatusDistributionWrapper />
         <PriorityDistributionWrapper />
         <TypeDistributionWrapper />
+        <RecentActivityWrapper />
       </div>
     </main>
   );
