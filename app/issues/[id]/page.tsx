@@ -4,8 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Clock, Flag } from "lucide-react";
 import Link from "next/link";
-// import { getServerSession } from "next-auth";
-// import { authOptions } from "@/app/auth/AuthOptions";
 import {
   typeTextMap,
   getStatusColor,
@@ -17,18 +15,16 @@ import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import IssueEditModal from "../components/IssueEditModal";
 import { Metadata } from "next";
 
-// interface Params {
-//   id: string;
-// }
-
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+
   const issue = await prisma.issue.findUnique({
     where: {
-      id: parseInt(params.id, 10),
+      id: parseInt(id, 10),
     },
   });
 
@@ -48,11 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function IssuePage({
   params,
 }: {
-  params: Promise<{ id: string }>; // temporary fix
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   if (isNaN(parseInt(id, 10))) notFound();
-  // const session = await getServerSession(authOptions);
 
   const issue = await prisma.issue.findUnique({
     where: {
