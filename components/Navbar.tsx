@@ -16,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ListTodo } from "lucide-react";
 import NewIssueBtn from "./NewIssueBtn";
 
 export async function Navbar() {
@@ -30,9 +29,14 @@ export async function Navbar() {
     <nav className="border-b bg-background w-full flex items-center">
       <div className="flex w-full items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-x-10 h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="rounded-md bg-primary p-1">
-              <ListTodo className="h-6 w-6 text-primary-foreground" />
+          <Link href="/" className="flex items-center gap-1">
+            <div className="rounded-md p-1">
+              <Image
+                src="/favicon.svg"
+                alt="logo"
+                width="35"
+                height="35"
+              ></Image>
             </div>
             <span className="hidden font-bold sm:inline-block text-xl">
               Toki

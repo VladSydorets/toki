@@ -1,5 +1,11 @@
 import prisma from "@/lib/db";
 import IssueColumns from "@/app/issues/components/IssueColumns";
+import { Metadata } from "next"; // Import Metadata
+
+export const metadata: Metadata = {
+  title: "Issues Board",
+  description: "Board with all issues in the system.",
+};
 
 export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();

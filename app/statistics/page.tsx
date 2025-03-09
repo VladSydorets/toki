@@ -3,6 +3,12 @@ import PriorityDistributionWrapper from "./components/PriorityDistribution/Prior
 import StatusDistributionWrapper from "./components/StatusDistribution/StatusDistributionWrapper";
 import TypeDistributionWrapper from "./components/TypeDistribution/TypeDistributionWrapper";
 import RecentActivityWrapper from "./components/RecentActivity/RecentActivityWrapper";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Statistics & Analytics",
+  description: "Overview of statistics related to issues.",
+};
 
 export default function StatisticsPage() {
   return (

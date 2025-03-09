@@ -15,10 +15,35 @@ import {
 } from "../definitions";
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import IssueEditModal from "../components/IssueEditModal";
+import { Metadata } from "next";
 
 // interface Params {
 //   id: string;
 // }
+
+type Props = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const issue = await prisma.issue.findUnique({
+    where: {
+      id: parseInt(params.id, 10),
+    },
+  });
+
+  if (!issue) {
+    return {
+      title: "Issue Not Found",
+      description: "The requested issue does not exist.",
+    };
+  }
+
+  return {
+    title: `Issue #${issue.id} - ${issue.title}`,
+    description: `Details about the issue: ${issue.title}`,
+  };
+}
 
 export default async function IssuePage({
   params,
