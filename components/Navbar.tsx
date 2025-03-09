@@ -105,10 +105,10 @@ export async function Navbar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/auth/profile">Profile</Link>
+                  <Link href="/profile">Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href="/auth/settings">Settings</Link>
+                  <Link href="/settings">Settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>New Team</DropdownMenuItem>
                 <DropdownMenuSeparator />

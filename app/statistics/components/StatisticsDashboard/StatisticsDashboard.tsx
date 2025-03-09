@@ -1,7 +1,7 @@
 import { Activity, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 import StatisticsCard from "./StatisticsCard";
 import prisma from "@/lib/db";
-import Link from "next/link";
+import HoverLink from "./HoverLink";
 
 export default async function StatisticsDashboard() {
   const totalIssues = await prisma.issue.count();
@@ -17,8 +17,9 @@ export default async function StatisticsDashboard() {
       createdAt: "asc",
     },
     select: {
-      title: true,
       id: true,
+      title: true,
+      description: true,
       createdAt: true,
     },
   });
@@ -38,8 +39,10 @@ export default async function StatisticsDashboard() {
       priority: "CRITICAL",
     },
     select: {
-      title: true,
       id: true,
+      title: true,
+      description: true,
+      createdAt: true,
     },
   });
 
@@ -66,34 +69,14 @@ export default async function StatisticsDashboard() {
       <StatisticsCard
         title="Oldest Open Issue"
         value={`${daysSinceOldestIssue} days`}
-        description={
-          oldestIssue ? (
-            <Link
-              className="hover:underline"
-              href={`/issues/${oldestIssue.id}`}
-            >
-              {oldestIssue.title}
-            </Link>
-          ) : (
-            ""
-          )
-        }
+        description={oldestIssue ? <HoverLink data={oldestIssue} /> : ""}
         icon={<Clock className="h-4 w-4" />}
       />
       <StatisticsCard
         title="Critical Issues"
         value={totalCriticalIssues.toString()}
         description={
-          oldestCriticalIssue ? (
-            <Link
-              className="hover:underline"
-              href={`/issues/${oldestCriticalIssue.id}`}
-            >
-              {oldestCriticalIssue.title}
-            </Link>
-          ) : (
-            ""
-          )
+          oldestCriticalIssue ? <HoverLink data={oldestCriticalIssue} /> : ""
         }
         icon={<AlertTriangle className="h-4 w-4" />}
       />
