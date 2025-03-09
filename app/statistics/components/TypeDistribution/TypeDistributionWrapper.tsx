@@ -1,6 +1,13 @@
 import prisma from "@/lib/db";
 import TypeDistribution from "./TypeDistribution";
 import { typeTextMap } from "@/app/issues/definitions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function TypeDistributionWrapper() {
   const issuesByType = await prisma.issue.groupBy({
@@ -22,5 +29,17 @@ export default async function TypeDistributionWrapper() {
     color: typeColors[entry.type],
   }));
 
-  return <TypeDistribution data={data}></TypeDistribution>;
+  return (
+    <Card>
+      <CardHeader className="pb-2 flex flex-col items-start">
+        <CardTitle className="text-base">Issue Type Distribution</CardTitle>
+        <CardDescription>
+          Current distribution of issues by type
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <TypeDistribution data={data}></TypeDistribution>
+      </CardContent>
+    </Card>
+  );
 }

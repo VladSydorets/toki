@@ -1,6 +1,13 @@
 import prisma from "@/lib/db";
 import StatusDistribution from "./StatusDistribution";
 import { statusTextMap } from "@/app/issues/definitions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function StatusDistributionWrapper() {
   const issuesByStatus = await prisma.issue.groupBy({
@@ -23,5 +30,17 @@ export default async function StatusDistributionWrapper() {
     color: statusColors[entry.status],
   }));
 
-  return <StatusDistribution data={data}></StatusDistribution>;
+  return (
+    <Card>
+      <CardHeader className="pb-2 flex flex-col items-start">
+        <CardTitle className="text-base">Issue Type Distribution</CardTitle>
+        <CardDescription>
+          Current distribution of issues by type
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <StatusDistribution data={data}></StatusDistribution>
+      </CardContent>
+    </Card>
+  );
 }

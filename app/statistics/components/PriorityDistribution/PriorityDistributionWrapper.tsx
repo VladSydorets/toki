@@ -1,6 +1,13 @@
 import prisma from "@/lib/db";
 import PriorityDistribution from "./PriorityDistribution";
 import { priorityTextMap } from "@/app/issues/definitions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default async function PriorityDistributionWrapper() {
   const issuesByPriority = await prisma.issue.groupBy({
@@ -36,5 +43,17 @@ export default async function PriorityDistributionWrapper() {
       color: priorityColors[entry.priority],
     }));
 
-  return <PriorityDistribution data={data}></PriorityDistribution>;
+  return (
+    <Card>
+      <CardHeader className="pb-2 flex flex-col items-start">
+        <CardTitle className="text-base">Issue Priority Distribution</CardTitle>
+        <CardDescription>
+          Current distribution of issues by priority
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <PriorityDistribution data={data}></PriorityDistribution>
+      </CardContent>
+    </Card>
+  );
 }
