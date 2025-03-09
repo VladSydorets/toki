@@ -78,7 +78,11 @@ export default async function IssuePage({
         <CardHeader className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div>
             <div className="flex items-center gap-3">
-              <div className="inline-block w-1.5 h-8 rounded-full bg-gradient-to-r from-emerald-500 to-green-500"></div>
+              <div
+                className={`inline-block w-1.5 h-8 rounded-full ${getStatusColor(
+                  issue.status
+                )}`}
+              ></div>
               <CardTitle className="text-2xl font-bold space-x-2">
                 <span className="text-muted-foreground mr-1">#{issue.id}</span>
                 {issue.title}
