@@ -1,5 +1,13 @@
 import { Issue, IssueType, IssueStatus, IssuePriority } from "@prisma/client";
 import { z } from "zod";
+import {
+  Inbox,
+  CheckSquare,
+  RotateCcw,
+  Code,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
 
 export const NewIssueFormSchema = z.object({
   title: z.string().nonempty("Title is required."),
@@ -22,6 +30,7 @@ export const NewIssueFormSchema = z.object({
     .optional(),
 });
 
+// Maps IssueType enum values to user-friendly display text for UI rendering
 export const typeTextMap: Record<IssueType, string> = {
   BUG: "Bug",
   FEATURE: "Feature",
@@ -30,6 +39,7 @@ export const typeTextMap: Record<IssueType, string> = {
   OTHER: "Other",
 };
 
+// Maps IssueStatus enum values to user-friendly display text for UI rendering
 export const statusTextMap: Record<IssueStatus, string> = {
   BACKLOG: "Backlog",
   TO_DO: "To do",
@@ -39,6 +49,7 @@ export const statusTextMap: Record<IssueStatus, string> = {
   CANCELED: "Canceled",
 };
 
+// Maps IssuePriority enum values to user-friendly display text for UI rendering
 export const priorityTextMap: Record<IssuePriority, string> = {
   MINOR: "Minor",
   LOWEST: "Lowest",
@@ -49,6 +60,7 @@ export const priorityTextMap: Record<IssuePriority, string> = {
   CRITICAL: "Critical",
 };
 
+// Returns a color based on the given type value
 export const getTypeColor = (type: Issue["type"]) => {
   switch (type) {
     case "BUG":
@@ -66,6 +78,7 @@ export const getTypeColor = (type: Issue["type"]) => {
   }
 };
 
+// Returns a color based on the given status value
 export const getStatusColor = (status: Issue["status"]) => {
   switch (status) {
     case "BACKLOG":
@@ -85,6 +98,7 @@ export const getStatusColor = (status: Issue["status"]) => {
   }
 };
 
+// Returns a color based on the given priority value
 export const getPriorityColor = (priority: Issue["priority"]) => {
   switch (priority) {
     case "MINOR":
@@ -105,3 +119,28 @@ export const getPriorityColor = (priority: Issue["priority"]) => {
       return "bg-gray-500";
   }
 };
+
+// Returns an icon component based on the given IssueStatus
+export const getStatusIcon = (status: IssueStatus) => {
+  switch (status) {
+    case "BACKLOG":
+      return Inbox;
+    case "TO_DO":
+      return CheckSquare;
+    case "IN_PROGRESS":
+      return RotateCcw;
+    case "CODE_REVIEW":
+      return Code;
+    case "COMPLETED":
+      return CheckCircle;
+    case "CANCELED":
+      return XCircle;
+    default:
+      return CheckSquare;
+  }
+};
+
+// Exports arrays of all possible issue types/statuses/priorities from the enum values in the Prisma schema
+export const allTypes: IssueType[] = Object.values(IssueType);
+export const allStatuses: IssueStatus[] = Object.values(IssueStatus);
+export const allPriorities: IssuePriority[] = Object.values(IssuePriority);
