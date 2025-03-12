@@ -10,20 +10,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import IssueForm from "./IssueForm";
 import { useState } from "react";
-import useIssue from "@/hooks/useIssue";
+import IssueForm from "./IssueForm";
+import { Issue, User } from "@prisma/client";
+interface Props {
+  issue: Issue;
+  users: User[];
+}
 
-export default function IssueEditModal({ issueId }: { issueId: number }) {
+export default function IssueEditModal({ issue, users }: Props) {
   const [open, setOpen] = useState(false);
-
-  const { issue, error, isLoading } = useIssue(issueId);
-
-  if (isLoading) return <p>Loading...</p>;
-
-  if (error || !issue) {
-    return <div>Issue not found</div>;
-  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -43,7 +39,11 @@ export default function IssueEditModal({ issueId }: { issueId: number }) {
             Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
-        <IssueForm issue={issue} onSuccess={() => setOpen(false)} />
+        <IssueForm
+          issue={issue}
+          users={users}
+          onSuccess={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   );

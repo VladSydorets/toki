@@ -9,25 +9,29 @@ import {
   XCircle,
 } from "lucide-react";
 
-export const NewIssueFormSchema = z.object({
+export const IssueFormSchema = z.object({
   title: z.string().nonempty("Title is required."),
-  description: z.string(),
-  type: z
-    .enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"])
-    .optional(),
-  status: z
-    .enum([
-      "BACKLOG",
-      "TO_DO",
-      "IN_PROGRESS",
-      "CODE_REVIEW",
-      "COMPLETED",
-      "CANCELED",
-    ])
-    .optional(),
-  priority: z
-    .enum(["MINOR", "LOWEST", "LOW", "MEDIUM", "HIGH", "HIGHEST", "CRITICAL"])
-    .optional(),
+  description: z.string().optional(),
+  type: z.enum(["BUG", "FEATURE", "ENHANCEMENT", "DOCUMENTATION", "OTHER"]),
+  status: z.enum([
+    "BACKLOG",
+    "TO_DO",
+    "IN_PROGRESS",
+    "CODE_REVIEW",
+    "COMPLETED",
+    "CANCELED",
+  ]),
+  priority: z.enum([
+    "MINOR",
+    "LOWEST",
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "HIGHEST",
+    "CRITICAL",
+  ]),
+  assignedToId: z.number().nullable(),
+  tags: z.string().array().optional(),
 });
 
 // Maps IssueType enum values to user-friendly display text for UI rendering

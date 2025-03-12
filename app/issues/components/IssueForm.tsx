@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Issue } from "@prisma/client";
 import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 import {
@@ -26,44 +25,77 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { NewIssueFormSchema } from "../definitions";
+import { IssueFormSchema } from "../definitions";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { CirclePlus, Pencil } from "lucide-react";
+import SelectUsers from "./SelectUsers";
+import { Issue, User } from "@prisma/client";
 
 interface IssueFormProps {
   issue?: Issue;
+  users: User[];
   onSuccess?: () => void;
 }
 
-export default function IssueForm({ issue, onSuccess }: IssueFormProps) {
+export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
   const router = useRouter();
   const [error, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
 
   const submitFormData: SubmitHandler<FieldValues> = async (formData) => {
     setSubmitting(true);
-    const { title, description, type, priority, status } = formData;
+    setError(false);
+    const { title, description, type, priority, status, assignedToId } =
+      formData;
+
     try {
+      let response;
       if (issue) {
-        await fetch(`/api/issues/${issue.id}`, {
+        response = await fetch(`/api/issues/${issue.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title, description, type, priority, status }),
+          body: JSON.stringify({
+            title,
+            description,
+            type,
+            priority,
+            status,
+            assignedToId,
+          }),
         });
       } else {
-        await fetch("/api/issues", {
+        response = await fetch("/api/issues", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ title, description, type, priority, status }),
+          body: JSON.stringify({
+            title,
+            description,
+            type,
+            priority,
+            status,
+            assignedToId,
+          }),
         });
       }
-      router.push(`/issues/${issue ? issue.id : ""}`); // bug here
-      onSuccess && onSuccess();
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to ${issue ? "update" : "create"} issue: ${
+            response.statusText
+          }`
+        );
+      }
+
+      const updatedIssue = await response.json();
+      const redirectId = issue ? issue.id : updatedIssue.id;
+
+      router.push(`/issues/${redirectId}`);
+      if (onSuccess) onSuccess();
     } catch (error) {
       console.log(error);
       setSubmitting(false);
@@ -80,7 +112,7 @@ export default function IssueForm({ issue, onSuccess }: IssueFormProps) {
     control,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(NewIssueFormSchema),
+    resolver: zodResolver(IssueFormSchema),
     mode: "onSubmit",
     reValidateMode: "onSubmit",
   });
@@ -97,7 +129,7 @@ export default function IssueForm({ issue, onSuccess }: IssueFormProps) {
           <p>An unexpected error has occured</p>
         </div>
       )}
-      <form onSubmit={handleSubmit((data) => submitFormData(data))}>
+      <form onSubmit={handleSubmit(submitFormData)}>
         <CardContent className="space-y-4 pt-6">
           <div className="flex gap-4 ">
             <div className="space-y-4 w-3/4">
@@ -227,6 +259,18 @@ export default function IssueForm({ issue, onSuccess }: IssueFormProps) {
                 {errors.priority && (
                   <p className="text-sm text-red-500">
                     {errors.priority.message as string}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <SelectUsers
+                  control={control}
+                  defaultValue={issue?.assignedToId ?? null}
+                  users={users}
+                />
+                {errors.assignedTo && (
+                  <p className="text-sm text-red-500">
+                    {errors.assignedTo.message as string}
                   </p>
                 )}
               </div>

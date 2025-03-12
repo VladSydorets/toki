@@ -27,14 +27,19 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const { title, description, type, status, priority, assignedToId, tags } =
+    body;
+
   const newIssue = await prisma.issue.create({
     data: {
-      title: body.title,
-      description: body.description,
-      type: body.type,
-      status: body.status,
-      priority: body.priority,
-      userId: parseInt(session.user.id, 10),
+      title: title,
+      description: description,
+      type: type,
+      status: status,
+      priority: priority,
+      reportedById: parseInt(session.user.id, 10),
+      assignedToId: parseInt(assignedToId, 10),
+      tags: tags,
     },
   });
 

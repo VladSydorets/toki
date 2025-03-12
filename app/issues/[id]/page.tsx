@@ -14,6 +14,7 @@ import {
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import IssueEditModal from "../components/IssueEditModal";
 import { Metadata } from "next";
+import { getAllUsers } from "@/lib/users";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -59,12 +60,17 @@ export default async function IssuePage({
     notFound();
   }
 
-  const user = await prisma.user.findUnique({
+  const assignedToUser = issue.assignedToId
+    ? await prisma.user.findUnique({ where: { id: issue.assignedToId } })
+    : null;
+
+  const reportedByUser = await prisma.user.findUnique({
     where: {
-      id: issue.userId,
+      id: issue.reportedById,
     },
   });
 
+  const users = await getAllUsers();
   return (
     <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
       <Link
@@ -129,16 +135,18 @@ export default async function IssuePage({
             <p className="text-muted-foreground">{issue.description}</p>
           </div>
           {/* TODO: Add user's icon */}
+          {assignedToUser && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Assigned to</h3>
+              <p className="text-muted-foreground">{`${assignedToUser.firstName} ${assignedToUser.lastName}`}</p>
+            </div>
+          )}
           <div>
             <h3 className="text-lg font-semibold mb-2">Reported By</h3>
-            <p className="text-muted-foreground">{`${user?.firstName} ${user?.lastName}`}</p>
+            <p className="text-muted-foreground">{`${reportedByUser?.firstName} ${reportedByUser?.lastName}`}</p>
           </div>
-          {/* <div>
-            <h3 className="text-lg font-semibold mb-2">Assigned to</h3>
-            <p className="text-muted-foreground">{issue.assignee}</p>
-          </div> */}
           <div className="flex justify-end space-x-4">
-            <IssueEditModal issueId={issue.id} />
+            <IssueEditModal issue={issue} users={users} />
             <RemoveIssueBtn issueId={issue.id} />
           </div>
         </CardContent>

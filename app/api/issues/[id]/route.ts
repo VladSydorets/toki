@@ -39,22 +39,23 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
   }
 
-  const { title, description } = body;
+  const { title, description, type, status, priority, assignedToId } = body;
 
   try {
     const updatedIssue = await prisma.issue.update({
       where: { id: parseInt(id as string, 10) },
       data: {
-        title,
-        description,
-        type: body.type || issue.type || "FEATURE",
-        status: body.status || issue.status || "BACKLOG",
-        priority: body.priority || issue.priority || "MEDIUM",
-        completedAt: body.status
-          ? body.status === "COMPLETED"
+        title: title,
+        description: description,
+        type: type || issue.type || "FEATURE",
+        status: status || issue.status || "BACKLOG",
+        priority: priority || issue.priority || "MEDIUM",
+        completedAt: status
+          ? status === "COMPLETED"
             ? new Date()
             : null
           : issue.completedAt,
+        assignedToId: parseInt(assignedToId, 10),
       },
     });
     return NextResponse.json(
