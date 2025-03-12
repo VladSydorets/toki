@@ -14,10 +14,12 @@ model User {
   password  String
   firstName String
   lastName  String
+  avatar    String?
   role      Role      @default(EMPLOYEE)
-  issues    Issue[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  assignedIssues Issue[] @relation("AssignedTo") 
+  reportedIssues Issue[] @relation("ReportedBy") 
 }
 
 enum Role {
@@ -33,11 +35,14 @@ model Issue {
   type        IssueType     @default(FEATURE)
   status      IssueStatus   @default(BACKLOG)
   priority    IssuePriority @default(MEDIUM)
-  userId      Int
-  user        User          @relation(fields: [userId], references: [id])
+  assignedToId Int?          
+  assignedTo  User?         @relation("AssignedTo", fields: [assignedToId], references: [id])
+  reportedById Int           
+  reportedBy  User          @relation("ReportedBy", fields: [reportedById], references: [id])  
   completedAt DateTime?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+  tags        String[]
 }
 
 enum IssueType {
