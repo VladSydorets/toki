@@ -2,10 +2,32 @@ import prisma from "@/lib/db";
 import StatusCard from "./StatusCard";
 import CompletionRateCard from "./CompletionRateCard";
 import { allStatuses } from "@/app/issues/definitions";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/auth/AuthOptions";
 
-export default async function StatusCardsWrapper() {
+interface StatusCardsWrapperProps {
+  filterBy: "assigned" | "reported";
+}
+
+export default async function StatusCardsWrapper({
+  filterBy,
+}: StatusCardsWrapperProps) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.id) {
+    return <>Error</>;
+  }
+
+  const userId = parseInt(session.user.id, 10);
+
+  const whereClause =
+    filterBy === "assigned"
+      ? { assignedToId: userId }
+      : { reportedById: userId };
+
   const issueCountByStatus = await prisma.issue.groupBy({
     by: "status",
+    where: whereClause,
     _count: {
       status: true,
     },
@@ -16,8 +38,8 @@ export default async function StatusCardsWrapper() {
   );
 
   const [totalIssues, completedIssues] = await Promise.all([
-    prisma.issue.count(),
-    prisma.issue.count({ where: { status: "COMPLETED" } }),
+    prisma.issue.count({ where: whereClause }),
+    prisma.issue.count({ where: { ...whereClause, status: "COMPLETED" } }),
   ]);
 
   return (
