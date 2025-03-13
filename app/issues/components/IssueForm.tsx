@@ -130,10 +130,10 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
         </div>
       )}
       <form onSubmit={handleSubmit(submitFormData)}>
-        <CardContent className="space-y-4 pt-6">
-          <div className="flex gap-4 ">
-            <div className="space-y-4 w-3/4">
-              <div className="space-y-2 w-1/2">
+        <CardContent className="space-y-6 pt-6">
+          <div className="flex flex-col gap-4 md:flex-row md:gap-8">
+            <div className="space-y-4 sm:w-3/4">
+              <div className="space-y-2 sm:w-1/2">
                 <Label htmlFor="title">Title:</Label>
                 <Input
                   type="text"
@@ -166,7 +166,7 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
               </div>
             </div>
 
-            <div className="space-y-4 w-1/4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-y-4 gap-x-2 md:w-1/4">
               <div className="space-y-2">
                 <Label htmlFor="type">Type:</Label>
                 <Controller
@@ -276,7 +276,6 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
               </div>
             </div>
           </div>
-
           <CardFooter>
             <Button type="submit" className="w-full" disabled={isSubmitting}>
               {issue ? (

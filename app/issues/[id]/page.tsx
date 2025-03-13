@@ -81,41 +81,45 @@ export default async function IssuePage({
         Back to all issues
       </Link>
       <Card>
-        <CardHeader className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
-          <div>
-            <div className="flex items-center gap-3">
-              <div
-                className={`inline-block w-1.5 h-8 rounded-full ${getStatusColor(
-                  issue.status
-                )}`}
-              ></div>
-              <CardTitle className="text-2xl font-bold space-x-2">
-                <span className="text-muted-foreground mr-1">#{issue.id}</span>
-                {issue.title}
-              </CardTitle>
-              <Badge className="text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent py-1">
-                {typeTextMap[issue.type]}
-              </Badge>
-            </div>
+        <CardHeader className="flex flex-col gap-2">
+          <div className="flex items-center gap-3">
+            <div
+              className={`inline-block w-1.5 self-stretch rounded-full ${getStatusColor(
+                issue.status
+              )}`}
+            ></div>
+            <CardTitle className="text-lg md:text-xl sm:text-2xl font-bold space-x-2 break-words">
+              <span className="text-muted-foreground mr-1">#{issue.id}</span>
+              {issue.title}
+            </CardTitle>
           </div>
-          <div className="flex items-center space-x-4">
-            <Badge className={`${getStatusColor(issue.status)} py-1`}>
+          <div className="flex items-center gap-2">
+            <Badge className="text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent py-1">
+              {typeTextMap[issue.type]}
+            </Badge>
+            <Badge
+              className={`${getStatusColor(issue.status)} py-1 h-6 flex-block`}
+            >
               {statusTextMap[issue.status]}
             </Badge>
-            <Badge className={`${getPriorityColor(issue.priority)} py-1`}>
+            <Badge
+              className={`${getPriorityColor(
+                issue.priority
+              )} py-1 h-6 flex-block`}
+            >
               {priorityTextMap[issue.priority]}
             </Badge>
           </div>
         </CardHeader>
         <CardContent className="grid gap-6">
-          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-            <div className="flex items-center">
-              <Clock className="mr-2 mb-[1px] h-4 w-4 opacity-70" />
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center text-xs sm:text-sm text-muted-foreground">
+            <div className="flex items-start sm:items-center">
+              <Clock className="mr-2 sm:mb-[1px] h-4 w-4 opacity-70" />
               <span>Created: {new Date(issue.createdAt).toLocaleString()}</span>
             </div>
             <div className="hidden sm:block">•</div>
-            <div className="flex items-center">
-              <Flag className="mr-2 h-4 w-4 opacity-70" />
+            <div className="flex items-start sm:items-center">
+              <Flag className="mr-2 sm:mb-[1px] h-4 w-4 opacity-70" />
               <span>Updated: {new Date(issue.updatedAt).toLocaleString()}</span>
             </div>
             {issue.completedAt && (
@@ -132,7 +136,9 @@ export default async function IssuePage({
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-2">Description</h3>
-            <p className="text-muted-foreground">{issue.description}</p>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              {issue.description}
+            </p>
           </div>
           {/* TODO: Add user's icon */}
           {assignedToUser && (
@@ -145,7 +151,7 @@ export default async function IssuePage({
             <h3 className="text-lg font-semibold mb-2">Reported By</h3>
             <p className="text-muted-foreground">{`${reportedByUser?.firstName} ${reportedByUser?.lastName}`}</p>
           </div>
-          <div className="flex justify-end space-x-4">
+          <div className="flex flex-col gap-3 items-start sm:flex-row sm:justify-end">
             <IssueEditModal issue={issue} users={users} />
             <RemoveIssueBtn issueId={issue.id} />
           </div>

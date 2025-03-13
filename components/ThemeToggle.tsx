@@ -20,7 +20,7 @@ export default function ThemeToggle() {
       variant="ghost"
       size="icon"
       aria-label="Toggle Theme"
-      className="mr-6"
+      className="rounded-full bg-gray-100 dark:bg-gray-900"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

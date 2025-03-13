@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import NewIssueBtn from "./NewIssueBtn";
+import { Menu } from "lucide-react";
 
 export async function Navbar() {
   const session = await getServerSession(authOptions);
@@ -38,11 +39,11 @@ export async function Navbar() {
                 height="35"
               ></Image>
             </div>
-            <span className="hidden font-bold sm:inline-block text-xl">
+            <span className="hidden sm:inline-block font-bold text-xl">
               Toki
             </span>
           </Link>
-          <div className="flex items-baseline gap-x-5">
+          <div className="hidden sm:flex items-baseline gap-x-5">
             <Link
               href="/issues"
               className="text-foreground hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-md text-sm font-medium"
@@ -94,7 +95,10 @@ export async function Navbar() {
                   </Avatar> */}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="px-2 min-w-48">
+              <DropdownMenuContent
+                align="end"
+                className="px-2 min-w-40 sm:min-w-48"
+              >
                 <DropdownMenuLabel className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">
                     {session?.user?.name}
@@ -118,6 +122,28 @@ export async function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           )}
+          <div className="sm:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-full bg-gray-100 dark:bg-gray-900"
+                >
+                  <Menu />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="px-2 min-w-32">
+                <DropdownMenuItem>
+                  <Link href="/issues">Issues</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/statistics">Statistics</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>New Team</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </nav>

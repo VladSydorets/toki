@@ -35,36 +35,34 @@ export function RemoveIssueBtn({ issueId }: { issueId: number }) {
   };
 
   return (
-    <>
-      <AlertDialog>
-        <AlertDialogTrigger>
-          <Button variant="destructive" className="p-3 flex items-center gap-1">
-            <Trash className="stroke-2 size-4 mb-[1px]" />
-            Delete issue
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription className="mb-4">
-              This action cannot be undone. This action will permanently delete
-              an issue.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>
-              <Button variant="ghost" color="gray">
-                Cancel
-              </Button>
-            </AlertDialogCancel>
-            <AlertDialogAction className="p-0">
-              <Button onClick={() => handleIssueDelete(issueId)}>
-                Delete Issue
-              </Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+    <AlertDialog>
+      <AlertDialogTrigger>
+        <Button variant="destructive" className="p-3 flex items-center gap-1">
+          <Trash className="stroke-2 size-4 mb-[1px]" />
+          Delete issue
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription className="mb-4">
+            This action cannot be undone. This action will permanently delete an
+            issue.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>
+            <Button variant="ghost" color="gray">
+              Cancel
+            </Button>
+          </AlertDialogCancel>
+          <AlertDialogAction className="p-0">
+            <Button onClick={() => handleIssueDelete(issueId)}>
+              Delete Issue
+            </Button>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

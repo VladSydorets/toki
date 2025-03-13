@@ -138,11 +138,9 @@ export default function IssuesTable({ issues }: Props) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <div>
-          <NewIssueBtn variant="primary" />
-        </div>
-        <div className="relative">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+        <NewIssueBtn variant="primary" />
+        <div className="relative w-full">
           <Search className="absolute w-4 left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <Input
             type="text"
@@ -153,7 +151,7 @@ export default function IssuesTable({ issues }: Props) {
           />
         </div>
         <Select value={statusFilter} onValueChange={handleStatusFilter}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
@@ -167,7 +165,7 @@ export default function IssuesTable({ issues }: Props) {
           </SelectContent>
         </Select>
         <Select value={priorityFilter} onValueChange={handlePriorityFilter}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-full">
             <SelectValue placeholder="Filter by priority" />
           </SelectTrigger>
           <SelectContent>
@@ -185,7 +183,7 @@ export default function IssuesTable({ issues }: Props) {
           <PopoverTrigger asChild>
             <Button
               variant="outline"
-              className="w-[240px] justify-start items-center text-left font-normal"
+              className="w-full justify-start items-center text-left font-normal"
             >
               <CalendarIcon className="size-4 mb-[2px]" />
               {dateRange?.from ? (
@@ -267,12 +265,12 @@ export default function IssuesTable({ issues }: Props) {
           {currentIssues.map((issue) => (
             <TableRow key={issue.id}>
               <TableCell className="font-medium">
-                <Badge className="text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent mr-2">
+                <Badge className="hidden sm:inline-block text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent mr-2">
                   {typeTextMap[issue.type]}
                 </Badge>
                 <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
               </TableCell>
-              <TableCell>
+              <TableCell className="min-w-[80px]">
                 <Badge className={getStatusColor(issue.status)}>
                   {statusTextMap[issue.status]}
                 </Badge>
@@ -284,10 +282,6 @@ export default function IssuesTable({ issues }: Props) {
               </TableCell>
               <TableCell className="text-right ">
                 <CreatedAt createdAt={issue.createdAt} />
-                {/* <span className="inline-flex items-center text-xs text-muted-foreground gap-1">
-                  <Clock className="stroke-2 size-3 mb-[1px]" />
-                  {.toLocaleDateString()}
-                </span> */}
               </TableCell>
             </TableRow>
           ))}
