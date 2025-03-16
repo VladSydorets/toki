@@ -1,8 +1,22 @@
 import prisma from "@/lib/prisma";
-import IssuesTable from "../components/IssuesTable";
+import { DataTable } from "@/components/table/DataTable";
+import { columns, Issue } from "@/components/table/Columns";
+
+async function getData(): Promise<Issue[]> {
+  return await prisma.issue.findMany({
+    select: {
+      id: true,
+      title: true,
+      status: true,
+      priority: true,
+      type: true,
+      createdAt: true,
+    },
+  });
+}
 
 export default async function Home() {
-  const issues = await prisma.issue.findMany();
+  const data = await getData();
 
   return (
     <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
@@ -12,7 +26,7 @@ export default async function Home() {
           Here&apos;s a list of your tasks!
         </p>
       </div>
-      <IssuesTable issues={issues}></IssuesTable>
+      <DataTable columns={columns} data={data} />
     </main>
   );
 }
