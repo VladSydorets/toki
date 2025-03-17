@@ -4,6 +4,7 @@ import CompletionRateCard from "./CompletionRateCard";
 import { allStatuses } from "@/app/issues/definitions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/auth/AuthOptions";
+import IssueBoard from "@/components/issues/IssueBoard";
 
 interface StatusCardsWrapperProps {
   filterBy: "assigned" | "reported";
@@ -42,23 +43,30 @@ export default async function StatusCardsWrapper({
     prisma.issue.count({ where: { ...whereClause, status: "COMPLETED" } }),
   ]);
 
+  const allIssues = await prisma.issue.findMany({
+    where: whereClause,
+  });
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-      {allStatuses.map((status) => (
-        <StatusCard
-          key={status}
+    <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+        {allStatuses.map((status) => (
+          <StatusCard
+            key={status}
+            data={{
+              value: countMap[status] || 0,
+              status,
+            }}
+          />
+        ))}
+        <CompletionRateCard
           data={{
-            value: countMap[status] || 0,
-            status,
+            totalIssues: totalIssues,
+            completedIssues: completedIssues,
           }}
         />
-      ))}
-      <CompletionRateCard
-        data={{
-          totalIssues: totalIssues,
-          completedIssues: completedIssues,
-        }}
-      />
+      </div>
+      <IssueBoard issues={allIssues} />
     </div>
   );
 }

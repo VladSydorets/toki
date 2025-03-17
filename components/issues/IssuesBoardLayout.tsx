@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import IssueCard from "../../../components/IssueCard";
-import { Badge } from "../../../components/ui/badge";
-import { Button } from "../../../components/ui/button";
+import IssueCard from "./IssueCard";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
-import EmptyCard from "../../../components/EmptyCard";
+import EmptyCard from "./EmptyCard";
 import { IssueStatus } from "@prisma/client";
 import { getStatusColor, statusTextMap } from "@/app/issues/definitions";
 import { Issue } from "@prisma/client";
 
-type IssueColumnsProps = {
+interface IssuesBoardLayoutProps {
   issues: Issue[];
-};
+}
 
-export default function IssueColumns({ issues }: IssueColumnsProps) {
+export default function IssuesBoardLayout({ issues }: IssuesBoardLayoutProps) {
   const [expandedColumns, setExpandedColumns] = useState({
     TO_DO: false,
     IN_PROGRESS: false,

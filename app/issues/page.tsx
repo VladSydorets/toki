@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import IssueColumns from "@/app/issues/components/IssueBoard";
+import IssueBoard from "@/components/issues/IssueBoard";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default async function IssuesPage() {
       <h2 className="text-2xl text-left font-bold tracking-tight">
         Issues Board
       </h2>
-      <IssueColumns issues={issues} />
+      <IssueBoard issues={issues} />
     </main>
   );
 }
