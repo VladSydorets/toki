@@ -12,7 +12,7 @@ export default function IssuesTabs() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">My Issues</h2>
           <p className="text-base text-muted-foreground">
-            Those are the issues assigned to you
+            These are the issues assigned to you
           </p>
           <StatusCardsWrapper filterBy="assigned" />
         </div>
@@ -21,7 +21,7 @@ export default function IssuesTabs() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Reported Issues</h2>
           <p className="text-base text-muted-foreground">
-            Those are the issues reported by you
+            These are the issues reported by you
           </p>
           <StatusCardsWrapper filterBy="reported" />
         </div>

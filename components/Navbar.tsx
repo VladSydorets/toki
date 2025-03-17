@@ -11,8 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  // DropdownMenuLabel,
-  // DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -48,7 +46,7 @@ export async function Navbar() {
               href="/issues"
               className="text-foreground hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-md text-sm font-medium"
             >
-              Issues
+              All Issues
             </Link>
             <Link
               href="/statistics"
@@ -109,7 +107,7 @@ export async function Navbar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <Link href="/profile">Profile</Link>
+                  <Link href="/profile">My Issues</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/settings">Settings</Link>
