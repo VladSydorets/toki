@@ -13,14 +13,6 @@ export default async function RecentActivityWrapper() {
     orderBy: {
       createdAt: "desc",
     },
-    select: {
-      id: true,
-      title: true,
-      type: true,
-      status: true,
-      priority: true,
-      createdAt: true,
-    },
     take: 5,
   });
 
