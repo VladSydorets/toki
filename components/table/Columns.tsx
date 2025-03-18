@@ -1,20 +1,12 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import CreatedAt from "../CreatedAt";
-import {
-  getPriorityColor,
-  getStatusColor,
-  priorityTextMap,
-  statusTextMap,
-  typeTextMap,
-} from "@/app/issues/definitions";
-
 import { IssuePriority, IssueStatus, IssueType } from "@prisma/client";
-import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import CreatedAt from "../CreatedAt";
+import BadgeWrapper from "../utility/BadgeWrapper";
 
 export type Issue = {
   id: number;
@@ -44,9 +36,12 @@ export const columns: ColumnDef<Issue>[] = [
     cell: ({ row }) => {
       return (
         <>
-          <Badge className="hidden sm:inline-block text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent mr-2">
-            {typeTextMap[row.original.type]}
-          </Badge>
+          <BadgeWrapper
+            type="type"
+            value={row.original.type}
+            variant="outline"
+            className="hidden sm:inline-block mr-2"
+          />
           <Link href={`/issues/${row.original.id}`} className="">
             {row.getValue("title")}
           </Link>
@@ -69,14 +64,10 @@ export const columns: ColumnDef<Issue>[] = [
       );
     },
     cell: ({ row }) => {
-      const statusVal = row.getValue("status");
+      const statusVal = row.getValue("status") as IssueStatus;
       return (
         <span className="px-4 py-2">
-          <Badge
-            className={getStatusColor(statusVal as keyof typeof statusTextMap)}
-          >
-            {statusTextMap[statusVal as keyof typeof statusTextMap]}
-          </Badge>
+          <BadgeWrapper type="status" value={statusVal} />
         </span>
       );
     },
@@ -96,16 +87,10 @@ export const columns: ColumnDef<Issue>[] = [
       );
     },
     cell: ({ row }) => {
-      const priorityVal = row.getValue("priority");
+      const priorityVal = row.getValue("priority") as IssuePriority;
       return (
         <span className="px-4 py-2">
-          <Badge
-            className={getPriorityColor(
-              priorityVal as keyof typeof priorityTextMap
-            )}
-          >
-            {priorityTextMap[priorityVal as keyof typeof priorityTextMap]}
-          </Badge>
+          <BadgeWrapper type="priority" value={priorityVal} />
         </span>
       );
     },

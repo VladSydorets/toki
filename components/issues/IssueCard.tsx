@@ -1,15 +1,14 @@
 import Link from "next/link";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
 import {
-  getPriorityColor,
   getStatusColor,
   getTypeColor,
   typeTextMap,
 } from "@/app/issues/definitions";
 import { Issue } from "@prisma/client";
 import CreatedAt from "../CreatedAt";
+import BadgeWrapper from "../utility/BadgeWrapper";
 
 interface IssueCardProps {
   issue: Issue;
@@ -23,7 +22,7 @@ export default function IssueCard({
   layout,
 }: IssueCardProps) {
   return (
-    <Link href={`/issues/${issue.id}`} className="block">
+    <Link href={`/issues/${issue.id}`} className="flex flex-col w-full h-full">
       <Card className="overflow-hidden transition-all duration-200 border-t-0 hover:shadow-md hover:border-gray-400 dark:hover:border-gray-500 hover:bg-slate-100 dark:hover:bg-slate-900 h-full">
         <div className={`h-1 w-full ${getStatusColor(issue.status)}`}></div>
         <div
@@ -52,23 +51,17 @@ export default function IssueCard({
               </p>
             )}
             <div className="flex gap-2 items-center w-full self-end">
-              <Badge
-                className={
-                  getPriorityColor(issue.priority) +
-                  " text-xs font-normal rounded-full text-white pointer-events-none"
-                }
-              >
-                {issue.priority}
-              </Badge>
+              <BadgeWrapper
+                type="priority"
+                value={issue.priority}
+                variant="uppercase"
+              />
               {layout === "list" && (
-                <Badge
-                  className={
-                    getTypeColor(issue.type) +
-                    " text-xs font-normal rounded-full text-white pointer-events-none"
-                  }
-                >
-                  {issue.type}
-                </Badge>
+                <BadgeWrapper
+                  type="type"
+                  value={issue.type}
+                  variant="uppercase"
+                />
               )}
               <CreatedAt createdAt={issue.createdAt} className="ml-auto" />
             </div>

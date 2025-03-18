@@ -1,22 +1,16 @@
 import { notFound } from "next/navigation";
 import prisma from "@/prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Clock, Flag } from "lucide-react";
 import Link from "next/link";
-import {
-  typeTextMap,
-  getStatusColor,
-  statusTextMap,
-  getPriorityColor,
-  priorityTextMap,
-} from "../definitions";
+import { getStatusColor } from "../definitions";
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import IssueEditModal from "../components/IssueEditModal";
 import { Metadata } from "next";
 import { getAllUsers } from "@/lib/users";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/auth/AuthOptions";
+import BadgeWrapper from "@/components/utility/BadgeWrapper";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -98,21 +92,9 @@ export default async function IssuePage({
             </CardTitle>
           </div>
           <div className="flex items-center gap-2">
-            <Badge className="text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent py-1">
-              {typeTextMap[issue.type]}
-            </Badge>
-            <Badge
-              className={`${getStatusColor(issue.status)} py-1 h-6 flex-block`}
-            >
-              {statusTextMap[issue.status]}
-            </Badge>
-            <Badge
-              className={`${getPriorityColor(
-                issue.priority
-              )} py-1 h-6 flex-block`}
-            >
-              {priorityTextMap[issue.priority]}
-            </Badge>
+            <BadgeWrapper type="type" value={issue.type} variant="outline" />
+            <BadgeWrapper type="status" value={issue.status} />
+            <BadgeWrapper type="priority" value={issue.priority} />
           </div>
         </CardHeader>
         <CardContent className="grid gap-6">
