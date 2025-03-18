@@ -11,7 +11,6 @@ export default function Page() {
         variant="outline"
         color="indigo"
         onClick={() => {
-          console.log("hallo");
           signOut({ callbackUrl: "/", redirect: true });
         }}
       >

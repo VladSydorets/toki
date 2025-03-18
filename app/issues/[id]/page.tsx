@@ -15,6 +15,8 @@ import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import IssueEditModal from "../components/IssueEditModal";
 import { Metadata } from "next";
 import { getAllUsers } from "@/lib/users";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/auth/AuthOptions";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -47,6 +49,8 @@ export default async function IssuePage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const session = await getServerSession(authOptions);
+
   const { id } = await params;
   if (isNaN(parseInt(id, 10))) notFound();
 
@@ -152,8 +156,8 @@ export default async function IssuePage({
             <p className="text-muted-foreground">{`${reportedByUser?.firstName} ${reportedByUser?.lastName}`}</p>
           </div>
           <div className="flex flex-col gap-3 items-start sm:flex-row sm:justify-end">
-            <IssueEditModal issue={issue} users={users} />
-            <RemoveIssueBtn issueId={issue.id} />
+            <IssueEditModal issue={issue} users={users} isDisabled={!session} />
+            <RemoveIssueBtn issueId={issue.id} isDisabled={!session} />
           </div>
         </CardContent>
       </Card>

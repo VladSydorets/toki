@@ -16,7 +16,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Trash } from "lucide-react";
 
-export function RemoveIssueBtn({ issueId }: { issueId: number }) {
+export function RemoveIssueBtn({
+  issueId,
+  isDisabled,
+}: {
+  issueId: number;
+  isDisabled?: boolean;
+}) {
   const router = useRouter();
   const handleIssueDelete = async (id: number) => {
     try {
@@ -36,8 +42,12 @@ export function RemoveIssueBtn({ issueId }: { issueId: number }) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
-        <Button variant="destructive" className="p-3 flex items-center gap-1">
+      <AlertDialogTrigger asChild>
+        <Button
+          variant="destructive"
+          disabled={isDisabled}
+          className="p-3 flex items-center gap-1"
+        >
           <Trash className="stroke-2 size-4 mb-[1px]" />
           Delete issue
         </Button>

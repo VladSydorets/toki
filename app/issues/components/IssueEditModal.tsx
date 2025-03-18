@@ -13,12 +13,14 @@ import {
 import { useState } from "react";
 import IssueForm from "./IssueForm";
 import { Issue, User } from "@prisma/client";
+
 interface Props {
   issue: Issue;
   users: User[];
+  isDisabled?: boolean;
 }
 
-export default function IssueEditModal({ issue, users }: Props) {
+export default function IssueEditModal({ issue, users, isDisabled }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,6 +29,7 @@ export default function IssueEditModal({ issue, users }: Props) {
         <Button
           variant="outline"
           className="bg-green-500 flex items-center gap-1 text-white"
+          disabled={isDisabled}
           onClick={() => setOpen(true)}
         >
           <Pencil className="stroke-2 size-4 mb-[1px]" /> Edit an issue
