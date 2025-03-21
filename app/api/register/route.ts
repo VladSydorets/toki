@@ -38,8 +38,15 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    // Filter out password from the response -- TODO: find a better way to do that xD
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _, ...userWithoutPassword } = newUser;
+
     // Return success response
-    return NextResponse.json({ user: newUser }, { status: 201 });
+    return NextResponse.json(
+      { message: "User created successfully", user: userWithoutPassword },
+      { status: 201 }
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });

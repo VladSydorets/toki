@@ -7,10 +7,15 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema } from "../definitions";
 
 export function LoginForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get("callbackUrl") || "/";
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const {
@@ -30,12 +35,13 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
         redirect: false,
+        callbackUrl,
       });
 
       if (response?.error) {
         setError("Invalid login credentials.");
       } else {
-        window.location.href = "/";
+        router.push(callbackUrl);
       }
     } catch (error) {
       console.error(error);
@@ -48,13 +54,18 @@ export function LoginForm() {
   const handleProviderSignIn = async (provider: string) => {
     setLoading(true);
     try {
+      console.log("Signin in with: ", provider);
       const response = await signIn(provider, {
         callbackUrl: "/",
-        redirect: true,
+        redirect: false,
       });
+
+      console.log("response: ", response);
 
       if (response?.error) {
         setError("Login failed. Try with a different account.");
+      } else if (response?.ok) {
+        router.push(callbackUrl);
       }
     } catch (error) {
       console.error(error);

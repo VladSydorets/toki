@@ -3,7 +3,7 @@ import StatusCard from "./StatusCard";
 import CompletionRateCard from "./CompletionRateCard";
 import { allStatuses } from "@/app/issues/definitions";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/auth/AuthOptions";
+import { authOptions } from "@/app/(auth)/AuthOptions";
 import IssueBoard from "@/components/issues/IssueBoard";
 
 interface StatusCardsWrapperProps {
@@ -19,7 +19,7 @@ export default async function StatusCardsWrapper({
     return <>Error</>;
   }
 
-  const userId = parseInt(session.user.id, 10);
+  const userId = session.user.id;
 
   const whereClause =
     filterBy === "assigned"

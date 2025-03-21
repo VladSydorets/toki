@@ -9,7 +9,7 @@ import IssueEditModal from "../components/IssueEditModal";
 import { Metadata } from "next";
 import { getAllUsers } from "@/lib/users";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/auth/AuthOptions";
+import { authOptions } from "@/app/(auth)/AuthOptions";
 import BadgeWrapper from "@/components/utility/BadgeWrapper";
 
 type Props = {

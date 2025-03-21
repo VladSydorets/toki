@@ -1,7 +1,7 @@
 import Link from "next/link";
-import SignUpForm from "./form";
+import RegisterForm from "./form";
 
-export default function Page() {
+export default function RegisterPage() {
   return (
     <div className="flex flex-col p-4">
       <div className="text-center">
@@ -9,11 +9,11 @@ export default function Page() {
         <p className="text-gray-500">Enter your information to get started</p>
       </div>
       <div className="mt-6">
-        <SignUpForm />
+        <RegisterForm />
       </div>
       <div className="mt-6 text-center text-sm">
         Already have an account?{" "}
-        <Link className="underline" href="/auth/signin">
+        <Link className="underline" href="/login">
           Login
         </Link>
       </div>

@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/auth/AuthOptions";
+import { authOptions } from "@/app/(auth)/AuthOptions";
 import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -32,7 +32,7 @@ export async function PATCH(
   }
 
   const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: parseInt(id, 10) },
   });
 
   if (!issue) {
@@ -43,7 +43,7 @@ export async function PATCH(
 
   try {
     const updatedIssue = await prisma.issue.update({
-      where: { id: parseInt(id as string, 10) },
+      where: { id: parseInt(id, 10) },
       data: {
         title: title,
         description: description,
@@ -55,7 +55,7 @@ export async function PATCH(
             ? new Date()
             : null
           : issue.completedAt,
-        assignedToId: parseInt(assignedToId, 10),
+        assignedToId: assignedToId,
       },
     });
     return NextResponse.json(
@@ -91,7 +91,7 @@ export async function DELETE(
 
   try {
     const issue = await prisma.issue.delete({
-      where: { id: parseInt(id as string, 10) },
+      where: { id: parseInt(id, 10) },
     });
     return NextResponse.json(
       { message: `Issue #${issue.id} has been deleted successfully.` },
@@ -125,7 +125,7 @@ export async function GET(
 
   try {
     const issue = await prisma.issue.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id, 10) },
     });
 
     if (!issue) {

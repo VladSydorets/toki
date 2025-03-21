@@ -11,7 +11,7 @@ export const LoginFormSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters." }),
 });
 
-export const SignupFormSchema = z.object({
+export const RegisterFormSchema = z.object({
   firstName: z
     .string()
     .min(2, { message: "First name must be at least 2 characters long." })

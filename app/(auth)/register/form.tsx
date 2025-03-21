@@ -7,19 +7,20 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignupFormSchema } from "../definitions";
+import { RegisterFormSchema } from "../definitions";
+import { signIn } from "next-auth/react";
 
-export default function SignUpForm() {
+export default function RegisterForm() {
+  const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(SignupFormSchema),
+    resolver: zodResolver(RegisterFormSchema),
     mode: "onSubmit",
     reValidateMode: "onSubmit",
   });
@@ -28,7 +29,7 @@ export default function SignUpForm() {
     setLoading(true);
     const { email, password, firstName, lastName } = formData;
     try {
-      const response = await fetch("/api/auth/signup", {
+      const response = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +40,12 @@ export default function SignUpForm() {
       const data = await response.json();
 
       if (response.ok) {
-        router.push("/auth/signin");
+        await signIn("credentials", {
+          redirect: false,
+          email,
+          password,
+        });
+        router.push("/");
       } else {
         setError(data.error || "Something went wrong");
       }

@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter, Roboto, Open_Sans } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import AuthProvider from "./(auth)/Provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,12 +51,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>
-          <div className="mx-auto max-w-screen-lg h-screen flex flex-col">
-            <Navbar />
-            <div className="flex-grow">{children}</div>
-          </div>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <div className="mx-auto max-w-screen-lg h-screen flex flex-col">
+              <Navbar />
+              <div className="flex-grow">{children}</div>
+            </div>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

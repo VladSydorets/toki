@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/auth/AuthOptions";
+import { authOptions } from "@/app/(auth)/AuthOptions";
 import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
       type: type,
       status: status,
       priority: priority,
-      reportedById: parseInt(session.user.id, 10),
-      assignedToId: parseInt(assignedToId, 10),
+      reportedById: session.user.id!, // temporary fix
+      assignedToId: assignedToId,
       tags: tags,
     },
   });
