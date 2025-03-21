@@ -22,7 +22,6 @@ export default function UserProfile() {
     return firstName[0] + lastName[0];
   }
 
-  console.log("session: ", session);
   const fullName =
     (session?.user?.firstName || "") + " " + (session?.user?.lastName || "");
 
