@@ -12,7 +12,7 @@ import { User } from "@prisma/client";
 interface SelectUsersProps {
   control: Control<FieldValues>;
   users: User[];
-  defaultValue: number | null;
+  defaultValue: string | null;
 }
 
 export default function SelectUsers({
@@ -31,9 +31,7 @@ export default function SelectUsers({
           <Select
             value={!field.value ? "unassigned" : String(field.value)}
             onValueChange={(value) =>
-              field.onChange(
-                value === "unassigned" ? null : parseInt(value, 10)
-              )
+              field.onChange(value === "unassigned" ? null : value)
             }
           >
             <SelectTrigger id="assignedToId">
@@ -44,7 +42,7 @@ export default function SelectUsers({
               {users.map((user) => (
                 <SelectItem
                   key={user.id}
-                  value={user.id.toString()}
+                  value={user.id}
                 >{`${user.firstName} ${user.lastName}`}</SelectItem>
               ))}
             </SelectContent>

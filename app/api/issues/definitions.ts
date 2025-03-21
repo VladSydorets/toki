@@ -21,7 +21,7 @@ export const patchIssueSchema = z.object({
     "HIGHEST",
     "CRITICAL",
   ]),
-  assignedToId: z.number().nullable().optional(),
+  assignedToId: z.string().nullable(),
   tags: z.string().array().optional(),
 });
 
@@ -46,6 +46,6 @@ export const issuePostRequestSchema = z.object({
     "HIGHEST",
     "CRITICAL",
   ]),
-  assignedToId: z.number().nullable().optional(),
+  assignedToId: z.string().nullable(),
   tags: z.string().array().optional(),
 });

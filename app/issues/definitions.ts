@@ -30,7 +30,7 @@ export const IssueFormSchema = z.object({
     "HIGHEST",
     "CRITICAL",
   ]),
-  assignedToId: z.number().nullable(),
+  assignedToId: z.string().nullable(),
   tags: z.string().array().optional(),
 });
 
