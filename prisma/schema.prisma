@@ -3,46 +3,82 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  firstName String
-  lastName  String
-  avatar    String?
-  role      Role      @default(EMPLOYEE)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  assignedIssues Issue[] @relation("AssignedTo") 
-  reportedIssues Issue[] @relation("ReportedBy") 
+  id             String    @id @default(cuid())
+  email          String?   @unique
+  password       String?
+  firstName      String?
+  lastName       String?
+  avatar         String?
+  role           Role      @default(EMPLOYEE)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  assignedIssues Issue[]   @relation("AssignedTo")
+  reportedIssues Issue[]   @relation("ReportedBy")
+  accounts       Account[]
+  sessions       Session[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Issue {
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String?
+  type         IssueType     @default(FEATURE)
+  status       IssueStatus   @default(BACKLOG)
+  priority     IssuePriority @default(MEDIUM)
+  assignedToId String?
+  assignedTo   User?         @relation("AssignedTo", fields: [assignedToId], references: [id])
+  reportedById String
+  reportedBy   User          @relation("ReportedBy", fields: [reportedById], references: [id])
+  completedAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  tags         String[]
 }
 
 enum Role {
   EMPLOYEE
   MANAGER
   ADMIN
-}
-
-model Issue {
-  id          Int           @id @default(autoincrement())
-  title       String
-  description String?
-  type        IssueType     @default(FEATURE)
-  status      IssueStatus   @default(BACKLOG)
-  priority    IssuePriority @default(MEDIUM)
-  assignedToId Int?          
-  assignedTo  User?         @relation("AssignedTo", fields: [assignedToId], references: [id])
-  reportedById Int           
-  reportedBy  User          @relation("ReportedBy", fields: [reportedById], references: [id])  
-  completedAt DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  tags        String[]
 }
 
 enum IssueType {
