@@ -14,9 +14,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Menu } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function UserProfile() {
   const { data: session } = useSession();
+  const [open, setOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   function getInitials(firstName: string, lastName: string) {
     return firstName[0] + lastName[0];
@@ -35,7 +38,7 @@ export default function UserProfile() {
           Sign In
         </Link>
       ) : (
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
@@ -65,21 +68,39 @@ export default function UserProfile() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href="/profile">My Issues</Link>
+              <Link
+                href="/profile"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
+                My Issues
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/settings">Settings</Link>
+              <Link
+                href="/settings"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
+                Settings
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>New Team</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Link href="/signout">Sign Out</Link>
+              <Link
+                href="/signout"
+                className="w-full"
+                onClick={() => setOpen(false)}
+              >
+                Sign Out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )}
       <div className="sm:hidden">
-        <DropdownMenu>
+        <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
@@ -91,10 +112,22 @@ export default function UserProfile() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="px-2 min-w-32">
             <DropdownMenuItem>
-              <Link href="/issues">Issues</Link>
+              <Link
+                href="/issues"
+                className="w-full"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Issues
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="/statistics">Statistics</Link>
+              <Link
+                href="/statistics"
+                className="w-full"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Statistics
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>New Team</DropdownMenuItem>
           </DropdownMenuContent>
