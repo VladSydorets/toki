@@ -54,13 +54,10 @@ export function LoginForm() {
   const handleProviderSignIn = async (provider: string) => {
     setLoading(true);
     try {
-      console.log("Signin in with: ", provider);
       const response = await signIn(provider, {
         callbackUrl: "/",
         redirect: false,
       });
-
-      console.log("response: ", response);
 
       if (response?.error) {
         setError("Login failed. Try with a different account.");
