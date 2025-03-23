@@ -1,3 +1,7 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 interface SpinnerProps {
   size?: string;
   color?: string;
@@ -25,16 +29,29 @@ export default function Spinner({
     gray: "border-gray-400",
   };
 
+  const spinTransition = {
+    repeat: Number.POSITIVE_INFINITY,
+    ease: "linear",
+    duration: 1,
+  };
+
   const spinnerSize =
     sizeStyles[size as keyof typeof sizeStyles] || sizeStyles.md;
   const spinnerColor =
     colorMap[color as keyof typeof colorMap] || colorMap.blue;
 
   return (
-    <div
-      className={`animate-spin rounded-full border-solid border-current border-t-transparent ${spinnerSize} ${spinnerColor} ${className}`}
+    <motion.div
+      className={cn(
+        spinnerSize,
+        spinnerColor,
+        className,
+        "rounded-full border-2 border-t-transparent"
+      )}
       role="status"
       aria-label="Loading"
+      animate={{ rotate: 360 }}
+      transition={spinTransition}
     />
   );
 }

@@ -11,6 +11,8 @@ import { getAllUsers } from "@/lib/users";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/(auth)/AuthOptions";
 import BadgeWrapper from "@/components/utility/BadgeWrapper";
+import { ContentTransition } from "@/components/animations/ContentTransition";
+import UserAvatar from "@/components/UserAvatar";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -92,9 +94,15 @@ export default async function IssuePage({
             </CardTitle>
           </div>
           <div className="flex items-center gap-2">
-            <BadgeWrapper type="type" value={issue.type} variant="outline" />
-            <BadgeWrapper type="status" value={issue.status} />
-            <BadgeWrapper type="priority" value={issue.priority} />
+            <ContentTransition content={issue.type}>
+              <BadgeWrapper type="type" value={issue.type} variant="outline" />
+            </ContentTransition>
+            <ContentTransition content={issue.status}>
+              <BadgeWrapper type="status" value={issue.status} />
+            </ContentTransition>
+            <ContentTransition content={issue.priority}>
+              <BadgeWrapper type="priority" value={issue.priority} />
+            </ContentTransition>
           </div>
         </CardHeader>
         <CardContent className="grid gap-6">
@@ -106,16 +114,26 @@ export default async function IssuePage({
             <div className="hidden sm:block">•</div>
             <div className="flex items-start sm:items-center">
               <Flag className="mr-2 sm:mb-[1px] h-4 w-4 opacity-70" />
-              <span>Updated: {new Date(issue.updatedAt).toLocaleString()}</span>
+              <ContentTransition
+                content={new Date(issue.updatedAt).toLocaleString()}
+              >
+                <span>
+                  Updated: {new Date(issue.updatedAt).toLocaleString()}
+                </span>
+              </ContentTransition>
             </div>
             {issue.completedAt && (
               <>
                 <div className="hidden sm:block">•</div>
                 <div className="flex items-center">
                   <Flag className="mr-2 h-4 w-4 opacity-70" />
-                  <span>
-                    Completed: {new Date(issue.completedAt).toLocaleString()}
-                  </span>
+                  <ContentTransition
+                    content={new Date(issue.completedAt).toLocaleString()}
+                  >
+                    <span>
+                      Completed: {new Date(issue.completedAt).toLocaleString()}
+                    </span>
+                  </ContentTransition>
                 </div>
               </>
             )}
@@ -126,17 +144,29 @@ export default async function IssuePage({
               {issue.description}
             </p>
           </div>
-          {/* TODO: Add user's icon */}
           {assignedToUser && (
             <div>
               <h3 className="text-lg font-semibold mb-2">Assigned to</h3>
-              <p className="text-muted-foreground">{`${assignedToUser.firstName} ${assignedToUser.lastName}`}</p>
+              <ContentTransition
+                content={
+                  assignedToUser.avatar ||
+                  "" ||
+                  assignedToUser.firstName ||
+                  "" ||
+                  assignedToUser.lastName ||
+                  ""
+                }
+              >
+                <UserAvatar user={assignedToUser} />
+              </ContentTransition>
             </div>
           )}
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Reported By</h3>
-            <p className="text-muted-foreground">{`${reportedByUser?.firstName} ${reportedByUser?.lastName}`}</p>
-          </div>
+          {reportedByUser && (
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Reported By</h3>
+              <UserAvatar user={reportedByUser} />
+            </div>
+          )}
           <div className="flex flex-col gap-3 items-start sm:flex-row sm:justify-end">
             <IssueEditModal issue={issue} users={users} isDisabled={!session} />
             <RemoveIssueBtn issueId={issue.id} isDisabled={!session} />

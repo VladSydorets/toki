@@ -8,8 +8,8 @@ import UserProfile from "./UserProfile";
 
 export async function Navbar() {
   return (
-    <nav className="border-b bg-background w-full flex items-center">
-      <div className="flex w-full items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 border-b bg-background backdrop-blur supports-[backdrop-filter]:bg-background/60 w-full flex items-center">
+      <div className="container mx-auto px-4 py-1 sm:px-6 lg:px-8 flex w-full items-center justify-between max-w-screen-lg">
         <div className="flex items-center gap-x-10 h-16">
           <Link href="/" className="flex items-center gap-1">
             <div className="rounded-md p-1">

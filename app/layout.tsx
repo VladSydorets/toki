@@ -4,6 +4,7 @@ import { Inter, Roboto, Open_Sans } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import AuthProvider from "./(auth)/Provider";
+import { PageTransition } from "@/components/animations/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -53,9 +54,11 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <ThemeProvider>
+            <Navbar />
             <div className="mx-auto max-w-screen-lg h-screen flex flex-col">
-              <Navbar />
-              <div className="flex-grow">{children}</div>
+              <div className="flex-grow">
+                <PageTransition>{children}</PageTransition>
+              </div>
             </div>
           </ThemeProvider>
         </AuthProvider>
