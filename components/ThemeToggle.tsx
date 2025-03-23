@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Spinner from "./Spinner";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -13,7 +14,7 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) return <Spinner size="lg" className="mr-1" />;
 
   return (
     <Button

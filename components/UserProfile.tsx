@@ -15,9 +15,10 @@ import { Menu } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 export default function UserProfile() {
-  const { data: session } = useSession();
+  const { status, data: session } = useSession();
   const [open, setOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -28,6 +29,7 @@ export default function UserProfile() {
   const fullName =
     (session?.user?.firstName || "") + " " + (session?.user?.lastName || "");
 
+  if (status === "loading") return <Spinner size="lg" className="mr-1" />;
   return (
     <>
       {!session?.user ? (
