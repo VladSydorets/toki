@@ -40,12 +40,10 @@ interface IssueFormProps {
 
 export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
   const router = useRouter();
-  const [error, setError] = useState(false);
   const [isSubmitting, setSubmitting] = useState(false);
 
   const submitFormData: SubmitHandler<FieldValues> = async (formData) => {
     setSubmitting(true);
-    setError(false);
     const { title, description, type, priority, status, assignedToId } =
       formData;
 
@@ -99,7 +97,6 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
     } catch (error) {
       console.log(error);
       setSubmitting(false);
-      setError(true);
     } finally {
       setSubmitting(false);
     }
@@ -123,11 +120,6 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
         <CardHeader className="pb-0">
           <CardTitle className="text-2xl font-bold">Create New Issue</CardTitle>
         </CardHeader>
-      )}
-      {error && (
-        <div className="mb-5" color="red">
-          <p>An unexpected error has occured</p>
-        </div>
       )}
       <form onSubmit={handleSubmit(submitFormData)}>
         <CardContent className="space-y-6 pt-6">
