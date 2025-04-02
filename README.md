@@ -1,13 +1,13 @@
-# Graphs Coloring App
+# Toki Issue Tracker
 
-![Full App Screenshot](https://github.com/VladSydorets/graphs-app/assets/39927384/b82f8399-ae55-4673-84ff-872eeaed753a)
+![Main Page](https://github.com/user-attachments/assets/be53bf1a-d7e3-4237-b6c5-1e0498cc6ff3)
 
 A web application designed to help users track issues efficiently. It allows users to log issues, update their status, and store the necessary details. The app ensures seamless data synchronization and user authentication while providing a clean and user-friendly interface.
 
 ## Features
-- Create and edit graph structures interactively
-- Validate the correctness of graph coloring
-- Export graphs as PNG images
+- Create and edit issues
+- Assign issues to team members
+- Get insights & analytics on your project
 
 ## Technologies
 - **Next.js**: Core framework with dependencies `react-hook-form` (to work with forms), `zod` (schema validation) and `recharts` (for charts)
