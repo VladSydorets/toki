@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import prisma from "@/prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Clock, Flag } from "lucide-react";
-import Link from "next/link";
+import { Clock, Flag } from "lucide-react";
 import { getStatusColor } from "../definitions";
 import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
 import IssueEditModal from "../components/IssueEditModal";
@@ -13,6 +12,7 @@ import { authOptions } from "@/app/(auth)/AuthOptions";
 import BadgeWrapper from "@/components/utility/BadgeWrapper";
 import { ContentTransition } from "@/components/animations/ContentTransition";
 import UserAvatar from "@/components/UserAvatar";
+import BackButton from "@/components/BackButton";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -73,13 +73,7 @@ export default async function IssuePage({
   const users = await getAllUsers();
   return (
     <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
-      <Link
-        href="/"
-        className="flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to all issues
-      </Link>
+      <BackButton />
       <Card>
         <CardHeader className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
