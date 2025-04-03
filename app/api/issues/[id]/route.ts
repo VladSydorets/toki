@@ -3,6 +3,7 @@ import prisma from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { patchIssueSchema } from "../definitions";
+import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   req: NextRequest,
@@ -45,8 +46,8 @@ export async function PATCH(
     const updatedIssue = await prisma.issue.update({
       where: { id: parseInt(id, 10) },
       data: {
-        title: title,
-        description: description,
+        title,
+        description,
         type: type || issue.type || "FEATURE",
         status: status || issue.status || "BACKLOG",
         priority: priority || issue.priority || "MEDIUM",
@@ -55,9 +56,13 @@ export async function PATCH(
             ? new Date()
             : null
           : issue.completedAt,
-        assignedToId: assignedToId,
+        assignedToId,
       },
     });
+
+    revalidatePath("/issues");
+    revalidatePath("/");
+
     return NextResponse.json(
       { message: `Issue #${updatedIssue.id} has been updated successfully.` },
       { status: 200 }
@@ -93,6 +98,10 @@ export async function DELETE(
     const issue = await prisma.issue.delete({
       where: { id: parseInt(id, 10) },
     });
+
+    revalidatePath("/issues");
+    revalidatePath("/");
+
     return NextResponse.json(
       { message: `Issue #${issue.id} has been deleted successfully.` },
       { status: 200 }

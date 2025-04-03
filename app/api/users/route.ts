@@ -13,3 +13,17 @@ export async function GET() {
     );
   }
 }
+
+export async function POST() {
+  // TODO: post request
+  // try {
+  //   const users = await prisma.user.findMany();
+  //   return NextResponse.json(users);
+  // } catch (error) {
+  //   console.error("Error fetching users:", error);
+  //   return NextResponse.json(
+  //     { error: "Failed to fetch users" },
+  //     { status: 500 }
+  //   );
+  // }
+}

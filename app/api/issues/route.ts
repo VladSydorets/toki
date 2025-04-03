@@ -3,6 +3,7 @@ import prisma from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { issuePostRequestSchema } from "./definitions";
+import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -32,16 +33,19 @@ export async function POST(request: NextRequest) {
 
   const newIssue = await prisma.issue.create({
     data: {
-      title: title,
-      description: description,
-      type: type,
-      status: status,
-      priority: priority,
+      title,
+      description,
+      type,
+      status,
+      priority,
       reportedById: session.user.id!, // temporary fix
-      assignedToId: assignedToId,
-      tags: tags,
+      assignedToId,
+      tags,
     },
   });
+
+  revalidatePath("/issues");
+  revalidatePath("/");
 
   return NextResponse.json(newIssue, { status: 201 });
 }
