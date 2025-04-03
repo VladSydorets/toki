@@ -1,8 +1,6 @@
 import Link from "next/link";
-
 import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
-
 import NewIssueBtn from "./NewIssueBtn";
 import UserProfile from "./UserProfile";
 
