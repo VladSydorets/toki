@@ -1,10 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import ScrollToTop from "@/components/animations/ScrollToTop";
 
 export default function IssueLoadingPage() {
   return (
     <Card className="w-full mx-auto">
+      <ScrollToTop />
       <Skeleton className="h-8" />
       <form>
         <CardContent className="space-y-6 pt-6">
