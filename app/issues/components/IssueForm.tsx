@@ -31,6 +31,7 @@ import { Button } from "@/components/ui/button";
 import { CirclePlus, Pencil } from "lucide-react";
 import SelectUsers from "./SelectUsers";
 import { Issue, User } from "@prisma/client";
+import Spinner from "@/components/Spinner";
 
 interface IssueFormProps {
   issue?: Issue;
@@ -279,7 +280,8 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   <CirclePlus className="stroke-2 size-4 mb-[1px]" /> Submit New
                   Issue
                 </>
-              )}
+              )}{" "}
+              {isSubmitting && <Spinner color="gray" />}
             </Button>
           </CardFooter>
         </CardContent>
