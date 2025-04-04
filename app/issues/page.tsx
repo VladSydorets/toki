@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: "View and manage all issues across the project.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function IssuesPage() {
   const issues = await prisma.issue.findMany();
 

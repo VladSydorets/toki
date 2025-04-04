@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Overview of statistics related to issues.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function StatisticsPage() {
   return (
     <main className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
