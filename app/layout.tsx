@@ -54,8 +54,8 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <ThemeProvider>
+            <Navbar />
             <div className="mx-auto max-w-screen-lg h-screen flex flex-col">
-              <Navbar />
               <div className="flex-grow">
                 <PageTransition>{children}</PageTransition>
               </div>
