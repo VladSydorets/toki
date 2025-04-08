@@ -100,7 +100,7 @@ export default function PasswordForm() {
                       <Input
                         type={showCurrentPassword ? "text" : "password"}
                         id="currentPassword"
-                        placeholder="Enter your current password to verify it's you"
+                        placeholder="Enter your current password"
                         {...register("currentPassword")}
                       />{" "}
                       <button

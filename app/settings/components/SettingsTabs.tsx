@@ -25,21 +25,20 @@ export default function SettingsTabs({ userData }: { userData: UserType }) {
         >
           <User className="h-4 w-4" />
           <span className="hidden sm:inline">Personal Info</span>
-          <span className="sm:hidden">Info</span>
         </TabsTrigger>
         <TabsTrigger
           value="password"
           className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center gap-2"
         >
           <KeyRound className="h-4 w-4" />
-          <span>Change Password</span>
+          <span className="hidden sm:inline">Change Password</span>
         </TabsTrigger>
         <TabsTrigger
           value="delete-account"
           className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white flex items-center gap-2"
         >
           <Ban className="h-4 w-4" />
-          <span>Delete Account</span>
+          <span className="hidden sm:inline">Delete Account</span>
         </TabsTrigger>
       </TabsList>
 
