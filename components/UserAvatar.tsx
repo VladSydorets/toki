@@ -2,7 +2,13 @@ import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { User } from "@prisma/client";
 
-export default function UserAvatar({ user }: { user: User }) {
+export default function UserAvatar({
+  user,
+  noText,
+}: {
+  user: User;
+  noText?: boolean;
+}) {
   const { avatar, firstName, lastName } = user;
 
   function getInitials(firstName: string, lastName: string) {
@@ -17,7 +23,9 @@ export default function UserAvatar({ user }: { user: User }) {
           {getInitials(firstName || "", lastName || "")}
         </AvatarFallback>
       </Avatar>
-      <p className="text-muted-foreground">{`${firstName} ${lastName}`}</p>
+      {!noText && (
+        <p className="text-muted-foreground">{`${firstName} ${lastName}`}</p>
+      )}
     </div>
   );
 }
