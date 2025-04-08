@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterFormSchema } from "../definitions";
 import { signIn } from "next-auth/react";
 import ErrorMessage from "@/components/utility/ErrorMessage";
+import Spinner from "@/components/Spinner";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -121,7 +122,7 @@ export default function RegisterForm() {
         disabled={loading}
         className="mt-4 w-full"
       >
-        {loading ? "Signing Up..." : "Sign Up"}
+        Sign Up {loading && <Spinner color="gray" />}
       </Button>
     </form>
   );

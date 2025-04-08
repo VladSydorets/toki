@@ -11,6 +11,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema } from "../definitions";
 import ErrorMessage from "@/components/utility/ErrorMessage";
+import Spinner from "@/components/Spinner";
 
 export function LoginForm() {
   const router = useRouter();
@@ -102,7 +103,7 @@ export function LoginForm() {
         </div>
         {error && <ErrorMessage errorMessage={error} />}
         <Button aria-disabled={loading} type="submit" className="mt-4 w-full">
-          {loading ? "Submitting..." : "Sign in"}
+          Sign in {loading && <Spinner color="gray" />}
         </Button>
         <Button
           disabled={loading}
