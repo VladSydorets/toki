@@ -15,9 +15,13 @@ export default function NewIssueBtn({
   variant = "primary",
   hideOnHome = false,
 }: Props) {
-  const pathname = usePathname();
+  const pathname = usePathname() as string;
+  const hiddenRoutes = ["/login", "/register"];
 
-  if (hideOnHome && pathname === "/") return null;
+  if (hiddenRoutes.includes(pathname) || (hideOnHome && pathname === "/")) {
+    return null;
+  }
+
   return (
     <Link
       href={"/issues/new"}
