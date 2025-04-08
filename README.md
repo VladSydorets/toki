@@ -1,6 +1,7 @@
 # Toki Issue Tracker
 
-![Main Page](https://github.com/user-attachments/assets/be53bf1a-d7e3-4237-b6c5-1e0498cc6ff3)
+![Issues Page](https://github.com/user-attachments/assets/5a43e38c-7524-40b8-81fc-406df8753826)
+
 
 A web application designed to help users track issues efficiently. It allows users to log issues, update their status, and store the necessary details. The app ensures seamless data synchronization and user authentication while providing a clean and user-friendly interface.
 
