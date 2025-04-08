@@ -33,7 +33,7 @@ export default function NewIssueBtn({
       }`}
     >
       <CirclePlus className="stroke-2 size-4 mb-[1px]" />
-      New Issue
+      <span className="hidden sm:inline">New Issue</span>
     </Link>
   );
 }

@@ -37,7 +37,7 @@ export default function IssueEditModal({ issue, users, isDisabled }: Props) {
           <Pencil className="stroke-2 size-4 mb-[1px]" /> Edit an issue
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] md:max-w-[800px] lg:max-w-[1000px]">
+      <DialogContent className="sm:max-w-[600px] md:max-w-[800px] lg:max-w-[1000px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Edit an issue</DialogTitle>
           <DialogDescription>
