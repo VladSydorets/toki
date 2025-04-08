@@ -1,5 +1,12 @@
 "use client";
 
+import { Menu } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useState } from "react";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,13 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Menu } from "lucide-react";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
 import Spinner from "./Spinner";
 
 export default function UserProfile() {

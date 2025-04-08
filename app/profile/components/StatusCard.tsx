@@ -1,5 +1,8 @@
-import { getStatusColor, getStatusIcon } from "@/app/issues/definitions";
-import { statusTextMap } from "@/app/issues/definitions";
+import {
+  getStatusColor,
+  getStatusIcon,
+  statusTextMap,
+} from "@/app/issues/definitions";
 import { Card, CardContent } from "@/components/ui/card";
 import { IssueStatus } from "@prisma/client";
 

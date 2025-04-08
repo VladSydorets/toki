@@ -1,8 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
-import ThemeToggle from "./ThemeToggle";
-import NewIssueBtn from "./NewIssueBtn";
-import UserProfile from "./UserProfile";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import NewIssueBtn from './NewIssueBtn';
+import ThemeToggle from './ThemeToggle';
+import UserProfile from './UserProfile';
 
 export async function Navbar() {
   return (

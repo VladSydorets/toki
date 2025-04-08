@@ -1,6 +1,7 @@
-import prisma from "@/lib/db";
-import IssueBoard from "@/components/issues/IssueBoard";
 import { Metadata } from "next";
+
+import IssueBoard from "@/components/issues/IssueBoard";
+import prisma from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "All Issues",

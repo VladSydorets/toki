@@ -1,7 +1,9 @@
-import React from "react";
-import IssueForm from "../components/IssueForm";
 import { Metadata } from "next";
+import React from "react";
+
 import { getAllUsers } from "@/lib/users";
+
+import IssueForm from "../components/IssueForm";
 
 export const metadata: Metadata = {
   title: "Create a New Issue",

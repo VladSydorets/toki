@@ -1,8 +1,9 @@
-import prisma from "@/prisma/client";
-import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/(auth)/AuthOptions";
 import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+
+import { authOptions } from "@/app/(auth)/AuthOptions";
+import prisma from "@/prisma/client";
 
 export async function GET() {
   try {

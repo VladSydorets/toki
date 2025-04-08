@@ -1,5 +1,9 @@
 "use client";
 
+import { Trash } from "lucide-react";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,9 +23,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Trash } from "lucide-react";
-import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export default function DeleteAccount({ userId }: { userId: string }) {
   const router = useRouter();

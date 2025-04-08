@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import StatusCardsWrapper from "./StatusCardsWrapper";
 
 export default function IssuesTabs() {

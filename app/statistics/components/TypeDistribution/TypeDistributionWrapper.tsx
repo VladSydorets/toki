@@ -1,5 +1,3 @@
-import prisma from "@/lib/db";
-import TypeDistribution from "./TypeDistribution";
 import { typeTextMap } from "@/app/issues/definitions";
 import {
   Card,
@@ -8,6 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import prisma from "@/lib/db";
+
+import TypeDistribution from "./TypeDistribution";
 
 export default async function TypeDistributionWrapper() {
   const issuesByType = await prisma.issue.groupBy({

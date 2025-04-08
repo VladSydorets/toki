@@ -1,10 +1,12 @@
-import prisma from "@/lib/db";
-import StatusCard from "./StatusCard";
-import CompletionRateCard from "./CompletionRateCard";
-import { allStatuses } from "@/app/issues/definitions";
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/app/(auth)/AuthOptions";
+import { allStatuses } from "@/app/issues/definitions";
 import IssueBoard from "@/components/issues/IssueBoard";
+import prisma from "@/lib/db";
+
+import CompletionRateCard from "./CompletionRateCard";
+import StatusCard from "./StatusCard";
 
 interface StatusCardsWrapperProps {
   filterBy: "assigned" | "reported";

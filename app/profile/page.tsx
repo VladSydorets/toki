@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import IssuesTabs from "./components/IssuesTabs";
 
 export const metadata: Metadata = {

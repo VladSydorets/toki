@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-// import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import React from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface StatCardProps {
   title: string;

@@ -1,9 +1,11 @@
+import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+
 import { authOptions } from "@/app/(auth)/AuthOptions";
 import prisma from "@/prisma/client";
-import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+
 import { patchIssueSchema } from "../definitions";
-import { revalidatePath } from "next/cache";
 
 export async function PATCH(
   req: NextRequest,

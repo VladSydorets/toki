@@ -1,17 +1,19 @@
 "use client";
 
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormSchema } from "../definitions";
 import ErrorMessage from "@/components/utility/ErrorMessage";
-import Spinner from "@/components/Spinner";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { LoginFormSchema } from "../definitions";
 
 export function LoginForm() {
   const router = useRouter();

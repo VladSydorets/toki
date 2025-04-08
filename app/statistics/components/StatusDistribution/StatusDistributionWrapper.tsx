@@ -1,5 +1,3 @@
-import prisma from "@/lib/db";
-import StatusDistribution from "./StatusDistribution";
 import { statusTextMap } from "@/app/issues/definitions";
 import {
   Card,
@@ -8,6 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import prisma from "@/lib/db";
+
+import StatusDistribution from "./StatusDistribution";
 
 export default async function StatusDistributionWrapper() {
   const issuesByStatus = await prisma.issue.groupBy({

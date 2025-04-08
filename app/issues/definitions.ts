@@ -1,13 +1,14 @@
-import { Issue, IssueType, IssueStatus, IssuePriority } from "@prisma/client";
-import { z } from "zod";
 import {
-  Inbox,
-  CheckSquare,
-  RotateCcw,
-  Code,
   CheckCircle,
+  CheckSquare,
+  Code,
+  Inbox,
+  RotateCcw,
   XCircle,
 } from "lucide-react";
+import { z } from "zod";
+
+import { Issue, IssuePriority, IssueStatus, IssueType } from "@prisma/client";
 
 export const IssueFormSchema = z.object({
   title: z.string().nonempty("Title is required."),

@@ -1,18 +1,20 @@
-import { notFound } from "next/navigation";
-import prisma from "@/prisma/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, Flag } from "lucide-react";
-import { getStatusColor } from "../definitions";
-import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
-import IssueEditModal from "../components/IssueEditModal";
 import { Metadata } from "next";
-import { getAllUsers } from "@/lib/users";
 import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
+
 import { authOptions } from "@/app/(auth)/AuthOptions";
-import BadgeWrapper from "@/components/utility/BadgeWrapper";
 import { ContentTransition } from "@/components/animations/ContentTransition";
-import UserAvatar from "@/components/UserAvatar";
 import BackButton from "@/components/BackButton";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import UserAvatar from "@/components/UserAvatar";
+import BadgeWrapper from "@/components/utility/BadgeWrapper";
+import { getAllUsers } from "@/lib/users";
+import prisma from "@/prisma/client";
+
+import IssueEditModal from "../components/IssueEditModal";
+import { RemoveIssueBtn } from "../components/RemoveIssueBtn";
+import { getStatusColor } from "../definitions";
 
 type Props = {
   params: Promise<{ id: string }>;

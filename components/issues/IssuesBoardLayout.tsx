@@ -1,14 +1,15 @@
 "use client";
 
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import IssueCard from "./IssueCard";
+
+import { getStatusColor, statusTextMap } from "@/app/issues/definitions";
+import { Issue, IssueStatus } from "@prisma/client";
+
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { ChevronDown } from "lucide-react";
 import EmptyCard from "./EmptyCard";
-import { IssueStatus } from "@prisma/client";
-import { getStatusColor, statusTextMap } from "@/app/issues/definitions";
-import { Issue } from "@prisma/client";
+import IssueCard from "./IssueCard";
 
 interface IssuesBoardLayoutProps {
   issues: Issue[];

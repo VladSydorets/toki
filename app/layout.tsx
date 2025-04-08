@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, Roboto, Open_Sans } from "next/font/google";
+
+import { Inter, Open_Sans, Roboto } from "next/font/google";
+
+import { PageTransition } from "@/components/animations/PageTransition";
 import { Navbar } from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+
 import AuthProvider from "./(auth)/Provider";
-import { PageTransition } from "@/components/animations/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],

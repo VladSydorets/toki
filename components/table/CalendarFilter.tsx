@@ -1,15 +1,17 @@
+import { endOfDay, format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { DateRange } from "react-day-picker";
+
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import { Button } from "../ui/button";
-import { CalendarIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import { DateRange } from "react-day-picker";
-import { format, endOfDay } from "date-fns";
 import { Column } from "@tanstack/react-table";
+
+import { Button } from "../ui/button";
 
 interface CalendarFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;

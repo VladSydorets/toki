@@ -1,6 +1,8 @@
-import prisma from "@/lib/db";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
+
+import prisma from "@/lib/db";
+
 import { authOptions } from "../(auth)/AuthOptions";
 import RoleBadge from "./components/RoleBadge";
 import SettingsTabs from "./components/SettingsTabs";

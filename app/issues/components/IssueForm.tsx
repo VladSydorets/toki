@@ -1,5 +1,17 @@
 "use client";
 
+import { CirclePlus, Pencil } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  Controller,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+
+import Spinner from "@/components/Spinner";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -16,23 +28,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
-import {
-  Controller,
-  FieldValues,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
-import { IssueFormSchema } from "../definitions";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { CirclePlus, Pencil } from "lucide-react";
-import SelectUsers from "./SelectUsers";
-import { Issue, User } from "@prisma/client";
-import Spinner from "@/components/Spinner";
 import ErrorMessage from "@/components/utility/ErrorMessage";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Issue, User } from "@prisma/client";
+import { Label } from "@radix-ui/react-label";
+
+import { IssueFormSchema } from "../definitions";
+import SelectUsers from "./SelectUsers";
 
 interface IssueFormProps {
   issue?: Issue;

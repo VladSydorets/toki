@@ -1,7 +1,9 @@
 import { Activity, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
-import StatisticsCard from "./StatisticsCard";
+
 import prisma from "@/lib/db";
+
 import HoverLink from "./HoverLink";
+import StatisticsCard from "./StatisticsCard";
 
 export default async function StatisticsDashboard() {
   const totalIssues = await prisma.issue.count();

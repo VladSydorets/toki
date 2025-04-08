@@ -1,12 +1,14 @@
 "use client";
 
-import { Issue } from "@prisma/client";
+import { Kanban, LayoutGrid, List } from "lucide-react";
 import { useState } from "react";
+
+import { Issue } from "@prisma/client";
+
 import { Button } from "../ui/button";
 import IssuesBoardLayout from "./IssuesBoardLayout";
 import IssuesGridLayout from "./IssuesGridLayout";
 import IssuesListLayout from "./IssuesListLayout";
-import { Kanban, LayoutGrid, List } from "lucide-react";
 
 interface IssueBoardProps {
   issues: Issue[];

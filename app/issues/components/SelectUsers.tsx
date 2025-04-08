@@ -1,3 +1,5 @@
+import { Control, Controller, FieldValues } from "react-hook-form";
+
 import {
   Select,
   SelectContent,
@@ -5,9 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@radix-ui/react-label";
-import { Control, Controller, FieldValues } from "react-hook-form";
 import { User } from "@prisma/client";
+import { Label } from "@radix-ui/react-label";
 
 interface SelectUsersProps {
   control: Control<FieldValues>;

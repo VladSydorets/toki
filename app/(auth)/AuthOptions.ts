@@ -1,10 +1,10 @@
-import prisma from "@/lib/db";
-import { type NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth";
+import { compare } from "bcrypt";
+import NextAuth, { type NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
+
+import prisma from "@/lib/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {

@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterFormSchema } from "../definitions";
 import { signIn } from "next-auth/react";
-import ErrorMessage from "@/components/utility/ErrorMessage";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
 import Spinner from "@/components/Spinner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import ErrorMessage from "@/components/utility/ErrorMessage";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { RegisterFormSchema } from "../definitions";
 
 export default function RegisterForm() {
   const router = useRouter();

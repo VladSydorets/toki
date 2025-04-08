@@ -1,10 +1,11 @@
+import { CalendarIcon } from "lucide-react";
+import Link from "next/link";
+
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { CalendarIcon } from "lucide-react";
-import Link from "next/link";
 
 interface Props {
   data: {

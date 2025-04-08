@@ -1,17 +1,19 @@
 "use client";
 
+import { motion } from "motion/react";
 import Link from "next/link";
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+
 import {
   getStatusColor,
   getTypeColor,
   typeTextMap,
 } from "@/app/issues/definitions";
 import { Issue } from "@prisma/client";
+
 import CreatedAt from "../CreatedAt";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import BadgeWrapper from "../utility/BadgeWrapper";
-import { motion } from "motion/react";
 
 interface IssueCardProps {
   issue: Issue;

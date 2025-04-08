@@ -1,9 +1,11 @@
+import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+
 import { authOptions } from "@/app/(auth)/AuthOptions";
 import prisma from "@/lib/db";
-import { getServerSession } from "next-auth";
-import { NextRequest, NextResponse } from "next/server";
+
 import { issuePostRequestSchema } from "./definitions";
-import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();

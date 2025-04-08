@@ -1,6 +1,7 @@
+import { Briefcase, Shield, User } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { Shield, User, Briefcase } from "lucide-react";
 
 type Role = "ADMIN" | "EMPLOYEE" | "MANAGER";
 

@@ -1,12 +1,14 @@
 "use client";
 
+import { Ban, KeyRound, User } from "lucide-react";
 import { useState } from "react";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { KeyRound, User, Ban } from "lucide-react";
-import PersonalInfoForm from "./PersonalInfoForm";
-import PasswordForm from "./PasswordForm";
-import DeleteAccount from "./DeleteAccount";
 import { User as UserType } from "@prisma/client";
+
+import DeleteAccount from "./DeleteAccount";
+import PasswordForm from "./PasswordForm";
+import PersonalInfoForm from "./PersonalInfoForm";
 
 export default function SettingsTabs({ userData }: { userData: UserType }) {
   const [activeTab, setActiveTab] = useState("personal-info");

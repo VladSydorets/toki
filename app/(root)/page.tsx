@@ -1,6 +1,6 @@
-import prisma from "@/lib/prisma";
-import { DataTable } from "@/components/table/DataTable";
 import { columns, Issue } from "@/components/table/Columns";
+import { DataTable } from "@/components/table/DataTable";
+import prisma from "@/lib/prisma";
 
 async function getData(): Promise<Issue[]> {
   return await prisma.issue.findMany({

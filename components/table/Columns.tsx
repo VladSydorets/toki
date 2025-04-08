@@ -1,10 +1,12 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { IssuePriority, IssueStatus, IssueType } from "@prisma/client";
-import Link from "next/link";
 import { ArrowUpDown } from "lucide-react";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
+import { IssuePriority, IssueStatus, IssueType } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
+
 import CreatedAt from "../CreatedAt";
 import BadgeWrapper from "../utility/BadgeWrapper";
 

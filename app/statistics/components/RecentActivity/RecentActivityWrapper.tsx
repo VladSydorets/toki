@@ -1,5 +1,3 @@
-import prisma from "@/lib/db";
-import RecentActivity from "./RecentActivity";
 import {
   Card,
   CardContent,
@@ -7,6 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import prisma from "@/lib/db";
+
+import RecentActivity from "./RecentActivity";
 
 export default async function RecentActivityWrapper() {
   const recentIssues = await prisma.issue.findMany({

@@ -1,6 +1,8 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+
 import { User } from "@prisma/client";
+
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function UserAvatar({
   user,

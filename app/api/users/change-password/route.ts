@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
+
 import { authOptions } from "@/app/(auth)/AuthOptions";
+import prisma from "@/lib/db";
 
 export async function POST(req: NextRequest) {
   const { currentPassword, newPassword } = await req.json();

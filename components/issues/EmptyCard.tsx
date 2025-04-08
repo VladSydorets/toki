@@ -1,6 +1,7 @@
-import { statusTextMap } from "@/app/issues/definitions";
 import { AlertCircle } from "lucide-react";
 import React from "react";
+
+import { statusTextMap } from "@/app/issues/definitions";
 import { IssueStatus } from "@prisma/client";
 
 export default function EmptyCard({ status }: { status: string }) {

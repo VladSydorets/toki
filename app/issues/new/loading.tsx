@@ -1,7 +1,7 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import ScrollToTop from "@/components/animations/ScrollToTop";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import ScrollToTop from "@/components/animations/ScrollToTop";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function IssueFormLoading() {
   return (

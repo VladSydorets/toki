@@ -1,4 +1,9 @@
-import { User } from "@prisma/client";
+import { motion } from "motion/react";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import Spinner from "@/components/Spinner";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,16 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { motion } from "motion/react";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Spinner from "@/components/Spinner";
-import { UserInfoSchema } from "../definitions";
+import { Label } from "@/components/ui/label";
 import ErrorMessage from "@/components/utility/ErrorMessage";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "@prisma/client";
+
+import { UserInfoSchema } from "../definitions";
 
 export default function PersonalInfoForm({ userData }: { userData: User }) {
   const [isSubmitting, setSubmitting] = useState(false);

@@ -1,8 +1,10 @@
-import { Issue } from "@prisma/client";
-import IssueCard from "./IssueCard";
-import { Button } from "../ui/button";
-import { usePagination } from "@/hooks/usePagination";
 import { CircleChevronDown, CircleChevronUp } from "lucide-react";
+
+import { usePagination } from "@/hooks/usePagination";
+import { Issue } from "@prisma/client";
+
+import { Button } from "../ui/button";
+import IssueCard from "./IssueCard";
 
 interface IssuesGridLayoutProps {
   issues: Issue[];

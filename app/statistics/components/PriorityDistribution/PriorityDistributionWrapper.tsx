@@ -1,5 +1,3 @@
-import prisma from "@/lib/db";
-import PriorityDistribution from "./PriorityDistribution";
 import { priorityTextMap } from "@/app/issues/definitions";
 import {
   Card,
@@ -8,6 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import prisma from "@/lib/db";
+
+import PriorityDistribution from "./PriorityDistribution";
 
 export default async function PriorityDistributionWrapper() {
   const issuesByPriority = await prisma.issue.groupBy({

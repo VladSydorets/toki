@@ -1,20 +1,22 @@
 "use client";
 
+import { RefreshCcw, Search, Settings2 } from "lucide-react";
 import * as React from "react";
 
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
+  allPriorities,
+  allStatuses,
+  priorityTextMap,
+  statusTextMap,
+} from "@/app/issues/definitions";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -23,27 +25,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  ColumnDef,
+  ColumnFiltersState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
+  useReactTable,
+  VisibilityState,
+} from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { RefreshCcw, Search, Settings2 } from "lucide-react";
-import { DataTablePagination } from "./Pagination";
 import NewIssueBtn from "../NewIssueBtn";
-import { DataTableFacetedFilter } from "./FacetedFilter";
-import {
-  allPriorities,
-  allStatuses,
-  priorityTextMap,
-  statusTextMap,
-} from "@/app/issues/definitions";
 import CalendarFilter from "./CalendarFilter";
+import { DataTableFacetedFilter } from "./FacetedFilter";
+import { DataTablePagination } from "./Pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

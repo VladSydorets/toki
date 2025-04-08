@@ -1,9 +1,10 @@
-import StatisticsDashboard from "./components/StatisticsDashboard/StatisticsDashboard";
+import { Metadata } from "next";
+
 import PriorityDistributionWrapper from "./components/PriorityDistribution/PriorityDistributionWrapper";
+import RecentActivityWrapper from "./components/RecentActivity/RecentActivityWrapper";
+import StatisticsDashboard from "./components/StatisticsDashboard/StatisticsDashboard";
 import StatusDistributionWrapper from "./components/StatusDistribution/StatusDistributionWrapper";
 import TypeDistributionWrapper from "./components/TypeDistribution/TypeDistributionWrapper";
-import RecentActivityWrapper from "./components/RecentActivity/RecentActivityWrapper";
-import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Statistics & Analytics",

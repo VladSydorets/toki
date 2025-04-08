@@ -6,9 +6,10 @@ import {
   statusTextMap,
   typeTextMap,
 } from "@/app/issues/definitions";
-import { Badge } from "../ui/badge";
-import { IssuePriority, IssueStatus, IssueType } from "@prisma/client";
 import { cn } from "@/lib/utils";
+import { IssuePriority, IssueStatus, IssueType } from "@prisma/client";
+
+import { Badge } from "../ui/badge";
 
 type BadgeType = "priority" | "status" | "type";
 type BadgeVariant = "default" | "outline" | "uppercase";

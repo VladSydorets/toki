@@ -1,7 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,9 +12,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import IssueForm from "./IssueForm";
 import { Issue, User } from "@prisma/client";
+
+import IssueForm from "./IssueForm";
 
 interface Props {
   issue: Issue;
