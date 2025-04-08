@@ -9,6 +9,7 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterFormSchema } from "../definitions";
 import { signIn } from "next-auth/react";
+import ErrorMessage from "@/components/utility/ErrorMessage";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -69,9 +70,7 @@ export default function RegisterForm() {
             {...register("email")}
           />
           {errors.email && (
-            <p className="text-sm text-red-500">
-              {errors.email.message as string}
-            </p>
+            <ErrorMessage errorMessage={errors.email.message as string} />
           )}
         </div>
         <div className="mt-4">
@@ -83,13 +82,15 @@ export default function RegisterForm() {
               <ul>
                 {Array.isArray(errors.password.message) ? (
                   errors.password.message.map((msg, idx) => (
-                    <li key={idx} className="text-red-500">
-                      {msg}
+                    <li key={idx}>
+                      <ErrorMessage errorMessage={msg} />
                     </li>
                   ))
                 ) : (
-                  <li className="text-red-500">
-                    {errors.password.message as string}
+                  <li>
+                    <ErrorMessage
+                      errorMessage={errors.password.message as string}
+                    />
                   </li>
                 )}
               </ul>
@@ -100,23 +101,19 @@ export default function RegisterForm() {
           <Label htmlFor="firstName">First Name</Label>
           <Input type="text" {...register("firstName")} />
           {errors.firstName && (
-            <p className="text-sm text-red-500">
-              {errors.firstName.message as string}
-            </p>
+            <ErrorMessage errorMessage={errors.firstName.message as string} />
           )}
         </div>
         <div className="mt-4">
           <Label htmlFor="lasttName">Last Name</Label>
           <Input type="text" {...register("lastName")} />
           {errors.lastName && (
-            <p className="text-sm text-red-500">
-              {errors.lastName.message as string}
-            </p>
+            <ErrorMessage errorMessage={errors.lastName.message as string} />
           )}
         </div>
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <ErrorMessage errorMessage={error} />}
 
       <Button
         aria-disabled={loading}

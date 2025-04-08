@@ -32,6 +32,7 @@ import { CirclePlus, Pencil } from "lucide-react";
 import SelectUsers from "./SelectUsers";
 import { Issue, User } from "@prisma/client";
 import Spinner from "@/components/Spinner";
+import ErrorMessage from "@/components/utility/ErrorMessage";
 
 interface IssueFormProps {
   issue?: Issue;
@@ -137,9 +138,7 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   required
                 />{" "}
                 {errors.title && (
-                  <p className="text-sm text-red-500">
-                    {errors.title.message as string}
-                  </p>
+                  <ErrorMessage errorMessage={errors.title.message as string} />
                 )}
               </div>
               <div className="space-y-2">
@@ -152,9 +151,9 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   {...register("description")}
                 />
                 {errors.description && (
-                  <p className="text-sm text-red-500">
-                    {errors.description.message as string}
-                  </p>
+                  <ErrorMessage
+                    errorMessage={errors.description.message as string}
+                  />
                 )}
               </div>
             </div>
@@ -187,9 +186,7 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   )}
                 />
                 {errors.type && (
-                  <p className="text-sm text-red-500">
-                    {errors.type.message as string}
-                  </p>
+                  <ErrorMessage errorMessage={errors.type.message as string} />
                 )}
               </div>
               <div className="space-y-2">
@@ -218,9 +215,9 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   )}
                 />
                 {errors.status && (
-                  <p className="text-sm text-red-500">
-                    {errors.status.message as string}
-                  </p>
+                  <ErrorMessage
+                    errorMessage={errors.status.message as string}
+                  />
                 )}
               </div>
               <div className="space-y-2">
@@ -250,9 +247,9 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   )}
                 />
                 {errors.priority && (
-                  <p className="text-sm text-red-500">
-                    {errors.priority.message as string}
-                  </p>
+                  <ErrorMessage
+                    errorMessage={errors.priority.message as string}
+                  />
                 )}
               </div>
               <div className="space-y-2">
@@ -262,9 +259,9 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
                   users={users}
                 />
                 {errors.assignedTo && (
-                  <p className="text-sm text-red-500">
-                    {errors.assignedTo.message as string}
-                  </p>
+                  <ErrorMessage
+                    errorMessage={errors.assignedTo.message as string}
+                  />
                 )}
               </div>
             </div>

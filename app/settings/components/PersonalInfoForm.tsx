@@ -16,6 +16,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "@/components/Spinner";
 import { UserInfoSchema } from "../definitions";
+import ErrorMessage from "@/components/utility/ErrorMessage";
 
 export default function PersonalInfoForm({ userData }: { userData: User }) {
   const [isSubmitting, setSubmitting] = useState(false);
@@ -86,9 +87,9 @@ export default function PersonalInfoForm({ userData }: { userData: User }) {
                       {...register("firstName")}
                     />{" "}
                     {errors.firstName && (
-                      <p className="text-xs text-red-500">
-                        {errors.firstName.message as string}
-                      </p>
+                      <ErrorMessage
+                        errorMessage={errors.firstName.message as string}
+                      />
                     )}
                   </div>
                   <div className="space-y-2 sm:w-1/2 self-start">
@@ -101,9 +102,9 @@ export default function PersonalInfoForm({ userData }: { userData: User }) {
                       {...register("lastName")}
                     />{" "}
                     {errors.lastName && (
-                      <p className="text-xs text-red-500">
-                        {errors.lastName.message as string}
-                      </p>
+                      <ErrorMessage
+                        errorMessage={errors.lastName.message as string}
+                      />
                     )}
                   </div>
                 </div>
@@ -117,9 +118,9 @@ export default function PersonalInfoForm({ userData }: { userData: User }) {
                     {...register("email")}
                   />
                   {errors.email && (
-                    <p className="text-xs text-red-500">
-                      {errors.email.message as string}
-                    </p>
+                    <ErrorMessage
+                      errorMessage={errors.email.message as string}
+                    />
                   )}
                 </div>
               </div>

@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Spinner from "@/components/Spinner";
 import { PasswordSchema } from "../definitions";
 import { motion } from "motion/react";
+import ErrorMessage from "@/components/utility/ErrorMessage";
 
 export default function PasswordForm() {
   const [isSubmitting, setSubmitting] = useState(false);
@@ -113,9 +114,9 @@ export default function PasswordForm() {
                       </button>
                     </div>
                     {errors.currentPassword && (
-                      <p className="text-xs text-red-500">
-                        {errors.currentPassword.message as string}
-                      </p>
+                      <ErrorMessage
+                        errorMessage={errors.currentPassword.message as string}
+                      />
                     )}
                   </div>
                   <div className="space-y-2 w-full">
@@ -136,9 +137,9 @@ export default function PasswordForm() {
                       </button>
                     </div>
                     {errors.newPassword && (
-                      <p className="text-xs text-red-500">
-                        {errors.newPassword.message as string}
-                      </p>
+                      <ErrorMessage
+                        errorMessage={errors.newPassword.message as string}
+                      />
                     )}
                   </div>
                   <div className="space-y-2 w-full">
@@ -163,14 +164,14 @@ export default function PasswordForm() {
                       </button>
                     </div>
                     {errors.repeatNewPassword && (
-                      <p className="text-xs text-red-500">
-                        {errors.repeatNewPassword.message as string}
-                      </p>
+                      <ErrorMessage
+                        errorMessage={
+                          errors.repeatNewPassword.message as string
+                        }
+                      />
                     )}
                     {notMatchingError && (
-                      <p className="text-xs text-red-500">
-                        Password does not match
-                      </p>
+                      <ErrorMessage errorMessage="Password does not match" />
                     )}
                   </div>
                 </div>

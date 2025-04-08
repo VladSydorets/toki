@@ -10,6 +10,7 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema } from "../definitions";
+import ErrorMessage from "@/components/utility/ErrorMessage";
 
 export function LoginForm() {
   const router = useRouter();
@@ -84,9 +85,7 @@ export function LoginForm() {
             {...register("email")}
           />
           {errors.email && (
-            <p className="text-sm text-red-500">
-              {errors.email.message as string}
-            </p>
+            <ErrorMessage errorMessage={errors.email.message as string} />
           )}
         </div>
         <div className="mt-4">
@@ -98,12 +97,10 @@ export function LoginForm() {
           </div>
           <Input id="password" type="password" {...register("password")} />
           {errors.password && (
-            <p className="text-sm text-red-500">
-              {errors.password.message as string}
-            </p>
+            <ErrorMessage errorMessage={errors.password.message as string} />
           )}
         </div>
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <ErrorMessage errorMessage={error} />}
         <Button aria-disabled={loading} type="submit" className="mt-4 w-full">
           {loading ? "Submitting..." : "Sign in"}
         </Button>
