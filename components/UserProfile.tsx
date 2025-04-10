@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import SignOutModal from "./SignOutModal";
 import Spinner from "./Spinner";
 
 export default function UserProfile() {
@@ -90,15 +91,7 @@ export default function UserProfile() {
             </DropdownMenuItem>
             <DropdownMenuItem>New Team</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Link
-                href="/signout"
-                className="w-full"
-                onClick={() => setOpen(false)}
-              >
-                Sign Out
-              </Link>
-            </DropdownMenuItem>
+            <SignOutModal />
           </DropdownMenuContent>
         </DropdownMenu>
       )}

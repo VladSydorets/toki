@@ -85,6 +85,7 @@ export function LoginForm() {
             id="email"
             placeholder="email@example.com"
             type="email"
+            className="text-sm"
             {...register("email")}
           />
           {errors.email && (
@@ -98,14 +99,29 @@ export function LoginForm() {
               Forgot your password?
             </Link>
           </div>
-          <Input id="password" type="password" {...register("password")} />
+          <Input
+            id="password"
+            placeholder="Enter your password"
+            type="password"
+            {...register("password")}
+          />
           {errors.password && (
             <ErrorMessage errorMessage={errors.password.message as string} />
           )}
         </div>
         {error && <ErrorMessage errorMessage={error} />}
-        <Button aria-disabled={loading} type="submit" className="mt-4 w-full">
-          Sign in {loading && <Spinner color="gray" />}
+        <Button
+          aria-disabled={loading}
+          type="submit"
+          className="mt-4 w-full bg-indigo-500 hover:bg-indigo-400 transition-colors duration-300"
+        >
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <Spinner color="gray" size="sm" /> Please wait
+            </span>
+          ) : (
+            "Sign in"
+          )}
         </Button>
         <Button
           disabled={loading}

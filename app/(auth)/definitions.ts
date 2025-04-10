@@ -33,4 +33,5 @@ export const RegisterFormSchema = z.object({
       message: "Contain at least one special character.",
     })
     .trim(),
+  passwordConfirmation: z.string().trim(),
 });
