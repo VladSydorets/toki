@@ -1,12 +1,12 @@
 "use client";
 
 import { Trash } from "lucide-react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -23,12 +23,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import ErrorMessage from "@/components/utility/ErrorMessage";
 
 export default function DeleteAccount({ userId }: { userId: string }) {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+
   const router = useRouter();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const handleUserDelete = async () => {
+    setError("");
     try {
+      if (email !== user?.email) {
+        setError("Email does not match. Please try again.");
+        return;
+      }
       signOut({ callbackUrl: "/", redirect: true });
 
       const response = await fetch(`/api/users`, {
@@ -83,17 +96,24 @@ export default function DeleteAccount({ userId }: { userId: string }) {
                 reported by you issues).
               </AlertDialogDescription>
             </AlertDialogHeader>
+            <div className="">
+              <Label>Please type {user?.email} to confirm</Label>
+              <Input
+                id="email"
+                type="text"
+                onInput={(e) => setEmail(e.currentTarget.value)}
+              />
+              {error && <ErrorMessage errorMessage={error} />}
+            </div>
             <AlertDialogFooter>
               <AlertDialogCancel>
                 <Button variant="ghost" color="gray">
                   Cancel
                 </Button>
               </AlertDialogCancel>
-              <AlertDialogAction className="p-0">
-                <Button onClick={() => handleUserDelete()}>
-                  Delete Account
-                </Button>
-              </AlertDialogAction>
+              <Button variant="destructive" onClick={handleUserDelete}>
+                Delete Account
+              </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
