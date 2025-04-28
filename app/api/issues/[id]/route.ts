@@ -85,8 +85,28 @@ export async function DELETE(
   const { id } = await params;
 
   const session = await getServerSession(authOptions);
+
   if (!session) {
     return NextResponse.json({ message: "Not authorized." }, { status: 401 });
+  }
+
+  // Users should be able to delete only their own issues (which were reported by them)
+  // Users with the role of "ADMIN" should be able to delete any issues
+  if (session?.user.role !== "ADMIN") {
+    const issue = await prisma.issue.findUnique({
+      where: { id: parseInt(id, 10) },
+    });
+
+    if (!issue) {
+      return NextResponse.json({ error: "Invalid issue" }, { status: 404 });
+    }
+
+    if (issue.reportedById !== session?.user.id) {
+      return NextResponse.json(
+        { error: "You are not authorized to delete this issue." },
+        { status: 403 }
+      );
+    }
   }
 
   if (!id) {

@@ -167,7 +167,14 @@ export default async function IssuePage({
           )}
           <div className="flex flex-col gap-3 items-start sm:flex-row sm:justify-end">
             <IssueEditModal issue={issue} users={users} isDisabled={!session} />
-            <RemoveIssueBtn issueId={issue.id} isDisabled={!session} />
+            <RemoveIssueBtn
+              issueId={issue.id}
+              isDisabled={
+                !session ||
+                (session.user.role !== "ADMIN" &&
+                  reportedByUser?.id !== session.user.id)
+              }
+            />
           </div>
         </CardContent>
       </Card>
