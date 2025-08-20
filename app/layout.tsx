@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Inter, Open_Sans, Roboto } from "next/font/google";
+import { Montserrat, Inter, Open_Sans, Roboto } from "next/font/google";
 
 import { PageTransition } from "@/components/animations/PageTransition";
 import { Navbar } from "@/components/Navbar";
@@ -20,6 +20,13 @@ const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
+});
+
+const montserrat = Montserrat({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat",
 });
 
 const openSans = Open_Sans({
@@ -51,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${roboto.variable} ${openSans.variable}`}
+      className={`${inter.variable} ${roboto.variable} ${openSans.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
       <body>

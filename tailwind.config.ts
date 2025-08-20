@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-export default {
+const config: Config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,7 +8,30 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.5rem",
+        lg: "2rem",
+      },
+    },
     extend: {
+      fontFamily: {
+        sans: [
+          "var(--font-montserrat)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        heading: ["var(--font-montserrat)", "ui-serif", "serif"],
+        body: [
+          "var(--font-montserrat)",
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+      },
       animation: {
         spin: "spin 1s linear infinite",
       },
@@ -68,4 +91,6 @@ export default {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+};
+
+export default config;
