@@ -2,44 +2,179 @@
 
 ![Issues Page](https://github.com/user-attachments/assets/5a43e38c-7524-40b8-81fc-406df8753826)
 
+## Introduction
 
-A web application designed to help users track issues efficiently. It allows users to log issues, update their status, and store the necessary details. The app ensures seamless data synchronization and user authentication while providing a clean and user-friendly interface.
+Toki Issue Tracker is a comprehensive web application designed to help teams efficiently track, manage, and resolve issues across projects. Built with modern web technologies, it provides a seamless experience for creating, assigning, and monitoring issues with a clean and intuitive interface. The application streamlines workflow management and enhances team collaboration through real-time updates and detailed analytics.
+
+## Overview
+
+Toki is a full-stack issue tracking system that enables teams to maintain organized workflows by categorizing issues based on type, priority, and status. The application features a responsive design that works across devices, allowing team members to stay updated on the go. With role-based access control, customizable dashboards, and comprehensive reporting, Toki helps teams improve productivity and project visibility.
+
+## Requirements
+
+To run Toki Issue Tracker locally, you'll need:
+
+- **Node.js** (v18.0.0 or newer)
+- **npm** or **yarn** package manager
+- **PostgreSQL** database
+- Internet connection for authentication services
 
 ## Features
-- Create and edit issues
+
+### User Management
+
+- Secure authentication with email/password or OAuth providers
+- Role-based access control (Employee, Manager, Admin)
+- Customizable user profiles with avatars
+
+### Issue Tracking
+
+- Create and edit issues with detailed descriptions
+- Categorize issues by type:
+  - Bug
+  - Feature
+  - Enhancement
+  - Documentation
+  - Other
+- Prioritize with multiple levels:
+  - Minor
+  - Lowest
+  - Low
+  - Medium
+  - High
+  - Highest
+  - Critical
+- Track status through workflow stages:
+  - Backlog
+  - To Do
+  - In Progress
+  - Code Review
+  - Completed
+  - Canceled
+
+### Team Collaboration
+
 - Assign issues to team members
-- Get insights & analytics on your project
+- Tag issues for easy filtering and categorization
+- Track issue history and updates
 
-## Technologies
-- **Next.js**: Core framework with dependencies `react-hook-form` (to work with forms), `zod` (schema validation) and `recharts` (for charts)
-- **shadcn/ui**: A responsive, modern UI
-- **Tailwind CSS**: Used for styling
-- **Prisma**: ORM to work with a database
+### Reporting & Analytics
 
-## Demo
-Try it live: [https://toki-one.vercel.app/](https://toki-one.vercel.app/)
+- Visual dashboards showing project status
+- Charts for issue distribution by status, type, and priority
+- Performance metrics and team productivity insights
 
-## Getting Started
+## Screenshots
 
-First, run the development server:
+### Dashboard
+
+![Dashboard](https://github.com/user-attachments/assets/5a43e38c-7524-40b8-81fc-406df8753826)
+
+## Technologies Used
+
+- **Frontend**:
+
+  - Next.js 15.1.2 (React 19)
+  - Tailwind CSS for styling
+  - shadcn/ui component library
+  - react-hook-form for form handling
+  - zod for validation
+  - recharts for data visualization
+
+- **Backend**:
+
+  - Next.js API routes
+  - Prisma ORM
+  - PostgreSQL database
+
+- **Authentication**:
+  - NextAuth.js
+
+## Running the App Locally
+
+Follow these steps to set up and run Toki Issue Tracker on your local machine:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/VladSydorets/toki.git
+cd toki
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. Set Up Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```
+# Database
+DATABASE_URL="postgresql://username:password@localhost:5432/toki"
+DIRECT_URL="postgresql://username:password@localhost:5432/toki"
+
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-nextauth-secret"
+
+# Optional: OAuth providers
+GITHUB_ID=your-github-client-id
+GITHUB_SECRET=your-github-client-secret
+GOOGLE_ID=your-google-client-id
+GOOGLE_SECRET=your-google-client-secret
+```
+
+### 4. Set Up the Database
+
+```bash
+npx prisma migrate dev
+# or
+yarn prisma migrate dev
+```
+
+### 5. Start the Development Server
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+### 6. Build for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+# or
+yarn build
+yarn start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Toki is optimized for deployment on Vercel, but can be deployed to any platform that supports Next.js applications. For detailed deployment instructions, please refer to the [Next.js deployment documentation](https://nextjs.org/docs/deployment).
+
+## Demo
+
+Try the live demo: [https://toki-one.vercel.app/](https://toki-one.vercel.app/)
+
+## Author
+
+**Vlad Sydorets**
+
+- GitHub: [VladSydorets](https://github.com/VladSydorets)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Made with ❤️ using Next.js and Prisma
