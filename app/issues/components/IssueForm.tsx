@@ -9,6 +9,7 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import { toast } from "sonner";
 
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
@@ -86,11 +87,18 @@ export default function IssueForm({ issue, users, onSuccess }: IssueFormProps) {
       }
 
       if (!response.ok) {
+        toast.error(`Failed to ${issue ? "update" : "create"} issue`);
         throw new Error(
           `Failed to ${issue ? "update" : "create"} issue: ${
             response.statusText
           }`
         );
+      }
+
+      if (response.ok && !issue) {
+        toast.success("Issue created successfully");
+      } else if (response.ok && issue) {
+        toast.success("Issue updated successfully");
       }
 
       const updatedIssue = await response.json();

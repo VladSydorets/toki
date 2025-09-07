@@ -15,6 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export function RemoveIssueBtn({
   issueId,
@@ -31,6 +32,7 @@ export function RemoveIssueBtn({
       });
 
       if (response.ok) {
+        toast.warning("Issue has been deleted");
         router.push("/issues");
       } else {
         await response.json();

@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { Montserrat, Inter, Open_Sans, Roboto } from "next/font/google";
+import { Roboto, Montserrat, Nunito } from "next/font/google";
 
 import { PageTransition } from "@/components/animations/PageTransition";
 import { Navbar } from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 import AuthProvider from "./(auth)/Provider";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 const roboto = Roboto({
   weight: ["400", "500", "700"],
@@ -29,10 +24,11 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-const openSans = Open_Sans({
+const nunito = Nunito({
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-open-sans",
+  variable: "--font-nunito",
 });
 
 export const metadata: Metadata = {
@@ -58,16 +54,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${roboto.variable} ${openSans.variable} ${montserrat.variable}`}
+      className={`${roboto.variable} ${montserrat.variable} ${nunito.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body className={nunito.className}>
         <AuthProvider>
           <ThemeProvider>
             <Navbar />
             <div className="mx-auto max-w-screen-lg flex flex-col">
               <div className="flex-grow">
-                <PageTransition>{children}</PageTransition>
+                <PageTransition>
+                  {children}
+                  <Toaster expand={true} richColors closeButton />
+                </PageTransition>
               </div>
             </div>
           </ThemeProvider>
