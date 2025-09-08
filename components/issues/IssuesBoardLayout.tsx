@@ -207,7 +207,7 @@ function DraggableIssueCard({ issue }: { issue: Issue }) {
     useDraggable({
       id: issue.id.toString(),
     });
-  console.log({ isDragging });
+  if (isDragging) return null;
   return (
     <div
       ref={setNodeRef}
@@ -217,7 +217,6 @@ function DraggableIssueCard({ issue }: { issue: Issue }) {
         transform: transform
           ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
           : undefined,
-        opacity: isDragging ? 0.1 : 1,
         cursor: "grab",
       }}
     >
