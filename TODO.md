@@ -93,6 +93,7 @@
 
 ## 🛠️ Technical Debt & Infrastructure
 
+- [ ] Fix the project structure
 - [ ] Improve test coverage
   - [ ] Unit tests for critical components
   - [ ] Integration tests for user flows
