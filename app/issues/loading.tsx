@@ -23,7 +23,7 @@ export default function IssuesBoardLoading() {
               <h3 className="flex gap-2 items-center px-4">
                 <Skeleton className="h-7" />
               </h3>
-              <div className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg space-y-3">
+              <div className="bg-gray-100 dark:bg-stone-800 p-4 rounded-lg space-y-3">
                 {[...Array(2)].map((_, index) => (
                   <div
                     key={index}
