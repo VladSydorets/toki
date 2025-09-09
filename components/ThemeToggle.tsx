@@ -23,7 +23,7 @@ export default function ThemeToggle() {
       variant="ghost"
       size="icon"
       aria-label="Toggle Theme"
-      className="rounded-full bg-gray-100 dark:bg-gray-900"
+      className="rounded-full border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all relative"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

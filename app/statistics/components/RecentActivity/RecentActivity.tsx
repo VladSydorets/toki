@@ -8,15 +8,10 @@ type RecentActivityProps = {
 export default function RecentActivity({ recentIssues }: RecentActivityProps) {
   return (
     <div className="h-[250px] overflow-auto pr-2">
-      <div className="space-y-3">
+      <div className="space-y-3 py-3">
         {recentIssues.length > 0 ? (
           recentIssues.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-start justify-stretch p-3 border rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <IssueCard issue={item} isCondensed />
-            </div>
+            <IssueCard key={item.id} issue={item} isCondensed />
           ))
         ) : (
           <div className="flex items-center justify-center h-full text-muted-foreground">

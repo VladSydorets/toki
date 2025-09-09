@@ -93,7 +93,7 @@ export default async function IssuePage({
           </div>
           <div className="flex items-center gap-2">
             <ContentTransition content={issue.type}>
-              <BadgeWrapper type="type" value={issue.type} variant="outline" />
+              <BadgeWrapper type="type" value={issue.type} />
             </ContentTransition>
             <ContentTransition content={issue.status}>
               <BadgeWrapper type="status" value={issue.status} />

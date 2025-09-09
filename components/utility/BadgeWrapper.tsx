@@ -53,7 +53,7 @@ export default function BadgeWrapper({
   const defaultStyles =
     "pointer-events-none text-xs text-black font-normal rounded-full";
   const variantStyles = {
-    default: color,
+    default: cn("dark:text-white", color),
     outline:
       "text-gray-500 text-foreground bg-transparent border-gray-800 dark:text-white hover:bg-transparent py-1",
     uppercase: cn("text-white pointer-events-none uppercase", color),

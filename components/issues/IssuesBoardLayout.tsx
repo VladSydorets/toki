@@ -162,7 +162,7 @@ export default function IssuesBoardLayout({ issues }: IssuesBoardLayoutProps) {
               </h3>
               <div
                 ref={setNodeRef}
-                className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg space-y-3 min-h-[120px]"
+                className="bg-gray-100 dark:bg-stone-800 p-4 rounded-lg space-y-3 min-h-[120px]"
               >
                 {filteredIssues.length > 0 ? (
                   <>
